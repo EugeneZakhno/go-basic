@@ -16,8 +16,8 @@ int32(rune)   32     4        -2147483648                 2147483647
 uint32        32     4        0                           4294967295
 int64         64     8        -9223372036854775808        9223372036854775807
 uint64        64     8        0                           18446744073709551615
-int           ??     ?        ??                          ??
-uint          ??     ?        0                           ??
+int           ??     ?        ??                          ?? (тоже что и int64) берет из архитектуры компьютера, сервера
+uint          ??     ?        0                           ?? (тоже что и uint64) берет из архитектуры компьютера, сервера
 
  ЧИСЛА С ПЛАВАЮЩЕЙ ТОЧКОЙ (ЗАПЯТОЙ):
 float32       32     4        -3.4e38                     3.4e38
@@ -50,11 +50,22 @@ func main() { //обязательно main
 	var float32Value float32 = 1.75221445
 	//var float64Value float64 = 1.5
 
-	fmt.Printf("Int value is %d, Int8 value %d, Float Valuue %f \n", uint64Value, uint8Value, float32Value)
+	var strValueWithIntInside string = "123456"
+
+	var intvalue int
+	intvalue, _ = strconv.Atoi(strValueWithIntInside)
+	fmt.Printf("strValueWithIntInside is %d \n", intvalue)
+
+	var strInt8Value string = "123"
+	tempvalue, err := strconv.ParseInt(strInt8Value, 10, 8)
+	fmt.Println(err)
+
+	var int8value = int8(tempvalue)
+	fmt.Printf("Int value is %d, Int8 value %d, uInt8 value %d, Float Valuue %f \n", uint64Value, int8value, uint8Value, float32Value)
 	fmt.Printf("Int value = %f \n", float32Value)
 	fmt.Printf("Int value = %d \n", uint8Value)
 
-	fmt.Println("Int value = " + strconv.Itoa(int(uint64Value)))
+	fmt.Println("Int value = " + strconv.Itoa(int64Value))
 
 	var favoriteBook string = "Сияние"
 	//Local var
