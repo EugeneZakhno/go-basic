@@ -41,14 +41,18 @@ func main() { //обязательно main
 	//var int64Value int64 = 1000000
 	//var intValue int = 1224444
 
-	//var uint8Value int8 = 100
-	//var uint16Value int16 = 1000
-	//var uint32Value int32 = 1
-	//var uint64Value int64 = 1000000
-	//var uintValue int = 1224444
+	var uint8Value uint8 = 111
+	//var uint16Value uint16 = 1000
+	//var uint32Value uint32 = 1
+	var uint64Value uint64 = 1000000
+	//var uintValue uint = 1224444
 
-	//var float32Value float32 = 1.75221445
+	var float32Value float32 = 1.75221445
 	//var float64Value float64 = 1.5
+
+	fmt.Printf("Int value is %d, Int8 value %d, Float Valuue %f \n", uint64Value, uint8Value, float32Value)
+	fmt.Printf("Int value = %f \n", float32Value)
+	fmt.Printf("Int value = %d \n", uint8Value)
 
 	fmt.Println("Int value = " + strconv.Itoa(int(uint64Value)))
 
