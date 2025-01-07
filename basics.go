@@ -67,6 +67,11 @@ func main() { //обязательно main
 
 	fmt.Println("Int value = " + strconv.Itoa(int64Value))
 
+	var appleIsRed bool = 2*2 == 4
+	fmt.Println(appleIsRed)
+	appleIsRed = false
+	fmt.Println(appleIsRed)
+
 	var favoriteBook string = "Сияние"
 	//Local var
 	fmt.Println("Hello Go" + "!")
@@ -75,6 +80,22 @@ func main() { //обязательно main
 	fmt.Println(favoriteBook)
 	result := 200
 	fmt.Println(result)
-
 	fmt.Println(int64Value)
+	fmt.Println(getSum(120, 49))
+
+	sum, sub := getSumAndDiff(300, 120)
+	fmt.Printf("Sum = %d, sub = %d", sum, sub)
+}
+
+func getSum(value1, value2 int) int {
+	return value1 + value2
+}
+
+func getSumAndDiff(value1, value2 int) (sum int, sub int) {
+	sum = value1 + value2
+	sub = value1 - value2
+	return
+}
+func isMoreThan10(value int) bool {
+	return value > 10
 }
