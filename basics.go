@@ -2,6 +2,7 @@ package main //Обязательно main
 
 import (
 	"fmt"
+	"strconv"
 )
 
 /*
@@ -31,11 +32,34 @@ complex128   128     16
 var banan string = "Mango"
 var favoriteNum int = 100
 
+var int64Value = 100
+
 func main() { //обязательно main
+	//var int8Value int8 = 100;
+	//var int16Value int16 = -1000
+	//var int32Value int32 = 1
+	//var int64Value int64 = 1000000
+	//var intValue int = 1224444
+
+	//var uint8Value int8 = 100
+	//var uint16Value int16 = 1000
+	//var uint32Value int32 = 1
+	//var uint64Value int64 = 1000000
+	//var uintValue int = 1224444
+
+	//var float32Value float32 = 1.75221445
+	//var float64Value float64 = 1.5
+
+	fmt.Println("Int value = " + strconv.Itoa(int(uint64Value)))
+
 	var favoriteBook string = "Сияние"
 	//Local var
 	fmt.Println("Hello Go" + "!")
 	fmt.Println(favoriteBook)
 	favoriteBook = "iota - }{уета это итерация "
 	fmt.Println(favoriteBook)
+	result := 200
+	fmt.Println(result)
+
+	fmt.Println(int64Value)
 }
