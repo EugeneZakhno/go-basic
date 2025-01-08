@@ -85,6 +85,8 @@ func main() { //обязательно main
 
 	sum, sub := getSumAndDiff(300, 120)
 	fmt.Printf("Sum = %d, sub = %d", sum, sub)
+	fmt.Println(runeRun())
+
 }
 
 func getSum(value1, value2 int) int {
@@ -99,3 +101,10 @@ func getSumAndDiff(value1, value2 int) (sum int, sub int) {
 func isMoreThan10(value int) bool {
 	return value > 10
 }
+
+func runeRun() rune {
+	var runeLettersA rune = 66
+	return runeLettersA
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
