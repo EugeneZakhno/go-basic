@@ -128,7 +128,7 @@ func runArrays() {
 
 func runSlice() [5]int {
 	//1. template: name :=[]type{}
-	int8Slice := [5]int{}
+	int8Slice := [5]int{45, 78, 11}
 	fmt.Println(int8Slice)
 	return int8Slice
 }
