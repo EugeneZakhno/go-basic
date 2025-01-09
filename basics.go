@@ -41,6 +41,9 @@ func main() { //обязательно main
 	//var int64Value int64 = 1000000
 	//var intValue int = 1224444
 
+	var runSlice = runSlice()
+	fmt.Println("runSlice -> ", runSlice)
+
 	var uint8Value uint8 = 111
 	//var uint16Value uint16 = 1000
 	//var uint32Value uint32 = 1
@@ -86,7 +89,6 @@ func main() { //обязательно main
 	sum, sub := getSumAndDiff(300, 120)
 	fmt.Printf("Sum = %d, sub = %d", sum, sub)
 	fmt.Println(runeRun())
-	arrays()
 
 }
 
@@ -113,15 +115,20 @@ func runArrays() {
 	var stringArray [3]string // by default ["","",""]
 	fmt.Println(stringArray)
 
-	var stringArrays [5] string{"Dsr","Ger","dbg","1244","rte"}
-	var stringArrawy [3] string{"Genny", "26", `Не фига не делает!`}
+	var stringArrays = [5]string{"Dsr", "Ger", "dbg", "1244"}
+
+	var arr3 = [3]string{"apple", "banana", "cherry"} // Массив из 3 строк
+	fmt.Println(arr3)
+	var arr1 = [5]int{1, 2, 3, 4, 5} // Массив из 5 элементов
+	fmt.Println(arr1)
+	var stringArrawy = [3]string{"Genny", "26", `Не фига не делает!`}
 	fmt.Println(stringArrays)
 	fmt.Println(stringArrawy)
 }
 
-func runSlice()  {
-  //1. template: name :=[]type{}
-
-
-
+func runSlice() [5]int {
+	//1. template: name :=[]type{}
+	int8Slice := [5]int{}
+	fmt.Println(int8Slice)
+	return int8Slice
 }
