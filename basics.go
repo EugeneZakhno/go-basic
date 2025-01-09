@@ -86,6 +86,7 @@ func main() { //обязательно main
 	sum, sub := getSumAndDiff(300, 120)
 	fmt.Printf("Sum = %d, sub = %d", sum, sub)
 	fmt.Println(runeRun())
+	arrays()
 
 }
 
@@ -107,4 +108,20 @@ func runeRun() rune {
 	return runeLettersA
 }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~Arrays~~~~~~~~~~~~~~~~~~~~~~~~~~
+func runArrays() {
+	var stringArray [3]string // by default ["","",""]
+	fmt.Println(stringArray)
+
+	var stringArrays [5] string{"Dsr","Ger","dbg","1244","rte"}
+	var stringArrawy [3] string{"Genny", "26", `Не фига не делает!`}
+	fmt.Println(stringArrays)
+	fmt.Println(stringArrawy)
+}
+
+func runSlice()  {
+  //1. template: name :=[]type{}
+
+
+
+}
