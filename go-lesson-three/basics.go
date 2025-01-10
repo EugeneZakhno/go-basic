@@ -285,5 +285,18 @@ func runStructe() {
 
 	changeCharactersNames(vincentVega, &miawallace)
 	fmt.Println(vincentVega, miawallace)
+	newMovie := Movie{"Криминальное чтиво", 1994}
+	movieAndRateMap := map[Movie]int8{
+		pulpFiction: 5,
+		newMovie:    4,
+		{"Криминальное чтиво", 1994}: 3}
 
+	fmt.Println(movieAndRateMap)
+
+	moviePointerAndRateMap := map[*Movie]int8{
+		&pulpFiction: 5,
+		&newMovie:    4,
+		{"Криминальное чтиво", 1994}: 3}
+
+	fmt.Println(moviePointerAndRateMap)
 }
