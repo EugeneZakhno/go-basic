@@ -99,6 +99,9 @@ func printBoolStringMap(mapBoolString map[bool]string) {
 		mapBoolString[true], "], mapBoolString[false] [", mapBoolString[false], "]")
 }
 
+func printStringFloat64Map(mapStringFloat64 map[string]float64) {
+}
+
 func runMap() {
 	var map1 map[string]float64
 	fmt.Println("map1 =", map1, "; len (map1) =", len(map1))
@@ -107,6 +110,7 @@ func runMap() {
 	fmt.Println("map2 =", map2, "; len (map2) =", len(map2))
 
 	map2["key1"], map2["key2"] = 100, 200
+	fmt.Println(map2["key1"])
 	fmt.Println(map2["key2"])
 	fmt.Println("map2 =", map2, "; len (map2) =", len(map2))
 
@@ -127,8 +131,36 @@ func runMap() {
 	mapBoolString[false] = "Земля плоская"
 	printBoolStringMap(mapBoolString)
 
-	//prices:= map[string] float64{
-	//	"Вино": 20.90,
-	//	"Шоколад": 2.10,
-	//	"Платье": 150.00,
+	prices := map[string]float64{
+		"Вино":    20.90,
+		"Шоколад": 2.10,
+		"Платье":  150.00,
+		//"Вино":    45.99,
+	}
+
+	printStringFloat64Map(prices)
+	prices["Вино"] = 45.99
+	prices["Пельмени"] = 9.80
+	printStringFloat64Map(prices)
+
+	delete(prices, "Вино")
+	printStringFloat64Map(prices)
+
+	dressPrice, ok := prices["Платье"]
+	fmt.Println("Платье найдено в карте:", ok)
+	fmt.Println("Цена платья:", dressPrice)
+
+	vinePrice, ok := prices["Вино"]
+	fmt.Println("Вино найдено в карте:", ok)
+	fmt.Println("Цена вина:", vinePrice)
+
+	for good, price := range prices {
+		fmt.Println("Товар", good, "по цене", price)
+	}
+	for _, price := range prices { // _ это skip
+		fmt.Println("Цена:", price)
+	}
+	for good := range prices {
+		fmt.Println("Товар:", good)
+	}
 }
