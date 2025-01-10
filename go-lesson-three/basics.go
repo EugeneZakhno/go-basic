@@ -4,16 +4,19 @@ import "fmt"
 
 func main() {
 	fmt.Println("Lesson_3:")
-	runPointer()
+	runLessons()
+	runMap()
+}
+func runLesson(m func()) {
+
 }
 
-//	func runLessons() {
-//		runLesson(runPointer)
-//		runLesson(runMap)
-//		runLesson(runStructure)
-//		runLesson(runPublicPrivate)
-//	}
-//
+func runLessons() {
+	runLesson(runPointer)
+	runLesson(runMap)
+	//runLesson(runStructure)
+	//		runLesson(runPublicPrivate)
+}
 
 // Pointers
 func printArrayAndPointer(array [3]string, pointer *[3]string) {
@@ -92,7 +95,8 @@ func runPointer() {
 
 // Map
 func printBoolStringMap(mapBoolString map[bool]string) {
-
+	fmt.Println("\n mapBoolString", mapBoolString, ", len", len(mapBoolString), "\n mapBoolString[true] = [",
+		mapBoolString[true], "], mapBoolString[false] [", mapBoolString[false], "]")
 }
 
 func runMap() {
@@ -116,4 +120,15 @@ func runMap() {
 
 	mapBoolString := make(map[bool]string, 1)
 	printBoolStringMap(mapBoolString)
+	mapBoolString[true] = "Tрава зелёная"
+	printBoolStringMap(mapBoolString)
+	mapBoolString[true] = "Я подписался на канал"
+	printBoolStringMap(mapBoolString)
+	mapBoolString[false] = "Земля плоская"
+	printBoolStringMap(mapBoolString)
+
+	//prices:= map[string] float64{
+	//	"Вино": 20.90,
+	//	"Шоколад": 2.10,
+	//	"Платье": 150.00,
 }
