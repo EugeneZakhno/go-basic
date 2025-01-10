@@ -164,3 +164,7 @@ func runMap() {
 		fmt.Println("Товар:", good)
 	}
 }
+
+func runStructe() {
+
+}
