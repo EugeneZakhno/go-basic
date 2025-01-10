@@ -4,8 +4,9 @@ import "fmt"
 
 func main() {
 	fmt.Println("Lesson_3:")
-	runLessons()
-	runMap()
+	//	runLessons()
+	//	runMap()
+	runStructe()
 }
 func runLesson(m func()) {
 
@@ -166,5 +167,55 @@ func runMap() {
 }
 
 func runStructe() {
+	var emptyCat1 Cat
+	emptyCat2 := Cat{}
+	fmt.Println("emptyCat1: ", emptyCat1, "emptyCat2 ", emptyCat2)
+
+	var emptyCatPointer1 *Cat = new(Cat)
+	var emptyCatPointer2 *Cat = &Cat{}
+	fmt.Println("emptyCatPointer1: ", emptyCatPointer1, ", emptyCatPointer2: ", emptyCatPointer2)
+
+	breedSphinx := "Cфинкс"
+	breedSiams := "Сиамский"
+	var catBosch Cat = Cat{
+		name:     "Босх",
+		breed:    breedSphinx,
+		years:    3,
+		children: []Cat{},
+	}
+	fmt.Println(catBosch)
+
+	var catVermeer Cat = Cat{"Вермеер", breedSphinx, 5, []Cat{
+		{"Магритт", breedSphinx, 1, nil},
+		{"Боттичелли", breedSphinx, 2, nil},
+	}}
+	fmt.Println(catVermeer)
+
+	var vasiliy Cat = Cat{
+		name:  "Василий",
+		breed: breedSiams,
+		years: 6,
+		// Owner: "Lora Palmer"
+	}
+
+	vasiliy.breed = breedSiams
+	fmt.Println(vasiliy)
+	fmt.Printf(" Сука удобнее %+v \n", vasiliy)
+	fmt.Println("Порода Василия:", vasiliy.breed)
+
+	// const marfa Cat   ВАЖНО: структуру нельзя присвоить константе, т.е. структура не может быть константой!!!!
+
+	biba, boba := Cat{"Биба", breedSiams, 3, nil},
+		Cat{"Боба", breedSiams, 3, nil}
+
+	boba.children = []Cat{{"Боба II", breedSiams, 1, nil}}
+	biba.name = "Boba"
+	fmt.Printf("Дети Бобы: %+v\n", boba.children)
+
+	vasiliy.children = append(vasiliy.children, biba)
+	fmt.Printf("%+v \n", vasiliy)
+
+	vasiliy.children = append(vasiliy.children, boba)
+	fmt.Printf("%+v \n", vasiliy)
 
 }
