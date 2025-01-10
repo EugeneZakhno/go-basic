@@ -300,3 +300,23 @@ func runStructe() {
 
 	fmt.Println(moviePointerAndRateMap)
 }
+
+// Public & Private  // Большая буква это Публичный доступ, маленькая первая буква это приватный доступ.
+func runPublicPrivate() {
+	// publicFruit: importedFood. Fruit {"Манго", 67}
+	//publicFruit := importedFood.Fruit{Name: "яблоко"}
+
+	// fmt.Println(publicFruit.calories)
+	//fmt.Println(publicFruit.Name)
+
+	// publicFruit.bite(3)
+	//fmt.Println(publicFruit.GetDescription())
+	// = importedFood.fastFood {"Шаверма", 800}
+}
+
+// Main
+func cleanScreen() {
+}
+
+func pause() {
+}
