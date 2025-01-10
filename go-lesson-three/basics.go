@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	importedFood "go-basics/go-lesson-three/food"
+)
 
 func main() {
 	fmt.Println("Lesson_3:")
@@ -304,13 +307,13 @@ func runStructe() {
 // Public & Private  // Большая буква это Публичный доступ, маленькая первая буква это приватный доступ.
 func runPublicPrivate() {
 	// publicFruit: importedFood. Fruit {"Манго", 67}
-	//publicFruit := importedFood.Fruit{Name: "яблоко"}
+	publicFruit := importedFood.Fruit{Name: "яблоко"}
 
 	// fmt.Println(publicFruit.calories)
-	//fmt.Println(publicFruit.Name)
+	fmt.Println(publicFruit.Name)
 
 	// publicFruit.bite(3)
-	//fmt.Println(publicFruit.GetDescription())
+	fmt.Println(publicFruit.GetDescription())
 	// = importedFood.fastFood {"Шаверма", 800}
 }
 
