@@ -200,7 +200,7 @@ func runStructe() {
 
 	vasiliy.breed = breedSiams
 	fmt.Println(vasiliy)
-	fmt.Printf(" Сука удобнее %+v \n", vasiliy)
+	fmt.Printf(" Так удобнее указываем ключ значение %+v \n", vasiliy)
 	fmt.Println("Порода Василия:", vasiliy.breed)
 
 	// const marfa Cat   ВАЖНО: структуру нельзя присвоить константе, т.е. структура не может быть константой!!!!
@@ -218,4 +218,41 @@ func runStructe() {
 	vasiliy.children = append(vasiliy.children, boba)
 	fmt.Printf("%+v \n", vasiliy)
 
+	boba.name = "Боба І"
+	fmt.Printf("%+v \n", boba)
+	fmt.Printf("%+v \n", vasiliy)
+	vasiliy.children[1].name = "Боба Старший"
+	fmt.Printf("%+v \n", vasiliy)
+	fmt.Printf("%+v \n", boba)
+
+	vasiliy.makeNoise()
+
+	var moto Motobike = Motobike{}
+	fmt.Println("Пустой мотоцикл =", moto)
+	moto.makeNoise()
+
+	moto.makeNoise()
+
+	pulpFiction := Movie{"Криминальное чтиво", 1994}
+	pulpFiction.print()
+	pulpFiction.startMovie()
+
+	fmt.Println(pulpFiction == Movie{"Криминальное чтиво", 1994})
+	fmt.Println(pulpFiction == Movie{"Бой с тенью", 2005})
+
+	var emptyMovie1 Movie
+	var emptyMovie2 Movie
+	fmt.Println(emptyMovie1 == pulpFiction)
+	fmt.Println(emptyMovie1 == emptyMovie2)
+
+	// Важно: мы не можем сравнивать структуры и nil, мы можем сравнивать pointers и nil !
+	// fmt.Println(nilMovie1 == nil)
+
+	// Важно: мы не можем сравнивать структуры в которых содержаться другие встроенные объекты, как например Cat {}
+	// fmt.Println(vasiliy == biba)
+
+	//vincentVega := Character {
+	//Movie: pulpFiction,
+	//name: "Винсент Вега",
+	//}
 }
