@@ -15,7 +15,7 @@ func main() {
 //	}
 //
 
-// Pointer
+// Pointers
 func printArrayAndPointer(array [3]string, pointer *[3]string) {
 	fmt.Println("Массив =", array, "; Указатель на array", pointer, "; Значения указателя pointer =", *pointer)
 }
@@ -93,4 +93,27 @@ func runPointer() {
 // Map
 func printBoolStringMap(mapBoolString map[bool]string) {
 
+}
+
+func runMap() {
+	var map1 map[string]float64
+	fmt.Println("map1 =", map1, "; len (map1) =", len(map1))
+	// map1 ["key1"] = 10
+	map2 := make(map[string]float64) // без capacity
+	fmt.Println("map2 =", map2, "; len (map2) =", len(map2))
+
+	map2["key1"], map2["key2"] = 100, 200
+	fmt.Println(map2["key2"])
+	fmt.Println("map2 =", map2, "; len (map2) =", len(map2))
+
+	map3 := make(map[string]float64, 5) // c capacity
+	fmt.Println("map3 =", map3, "; len (map3) =", len(map3))
+	// fmt.Println(cap(mapStringFloat64))
+
+	map3["key1"], map3["key2"] = 1000, 2000
+	fmt.Println(map3["key1"])
+	fmt.Println("map3", map3, "; len (map3) =", len(map3))
+
+	mapBoolString := make(map[bool]string, 1)
+	printBoolStringMap(mapBoolString)
 }
