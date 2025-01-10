@@ -166,6 +166,12 @@ func runMap() {
 	}
 }
 
+// Structures
+func changeCharactersNames(character Character, pointer *Character) {
+	character.name = "Vincent Vega"
+	pointer.name = "Mia Wallace"
+}
+
 func runStructe() {
 	var emptyCat1 Cat
 	emptyCat2 := Cat{}
@@ -242,6 +248,7 @@ func runStructe() {
 
 	var emptyMovie1 Movie
 	var emptyMovie2 Movie
+
 	fmt.Println(emptyMovie1 == pulpFiction)
 	fmt.Println(emptyMovie1 == emptyMovie2)
 
@@ -251,8 +258,32 @@ func runStructe() {
 	// Важно: мы не можем сравнивать структуры в которых содержаться другие встроенные объекты, как например Cat {}
 	// fmt.Println(vasiliy == biba)
 
-	//vincentVega := Character {
-	//Movie: pulpFiction,
-	//name: "Винсент Вега",
-	//}
+	vincentVega := Character{
+		Movie: pulpFiction,
+		name:  "Винсент Вега",
+	}
+
+	miawallace := Character{
+		pulpFiction,
+		"Мия Уоллес", //Если переношу скобку, то надо запятую указать, а если не переношу, то не надо))) ха-ха, прикол!
+	}
+	miawallace.print()
+	miawallace.startMovie()
+
+	// miawallace := Character {pulpFiction, "Мия Уоллес", emptyMovie1}
+	// fmt.Println(miawallace.Movie.name)
+	// fmt.Println(miawallace.anotherMovie.name)
+
+	var emptyCharacter Character
+
+	fmt.Println(vincentVega)
+	fmt.Println(miawallace)
+	fmt.Println(emptyCharacter)
+
+	fmt.Println("Год через фильм:", vincentVega.Movie.year)
+	fmt.Println("Год напрямую:", vincentVega.year)
+
+	changeCharactersNames(vincentVega, &miawallace)
+	fmt.Println(vincentVega, miawallace)
+
 }

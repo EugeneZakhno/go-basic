@@ -32,6 +32,16 @@ func (m *Movie) startMovie() {
 	fmt.Printf("Фильм \"%s\" НАЧАЛСЯ! \n", m.name)
 }
 
+type Character struct {
+	Movie        // Встроенное или анонимное
+	name  string // обычное или именованное
+	// anotherMovie Movie
+}
+
+func (c *Character) print() {
+	fmt.Printf("Персонаж \"%s\" из фильма %s (%d.)\n", c.name, c.Movie.name, c.year)
+}
+
 type Motobike struct {
 }
 
