@@ -109,7 +109,7 @@ func printStringFloat64Map(mapStringFloat64 map[string]float64) {
 func runMap() {
 	var map1 map[string]float64
 	fmt.Println("map1 =", map1, "; len (map1) =", len(map1))
-	// map1 ["key1"] = 10
+	map1["key1"] = 10
 	map2 := make(map[string]float64) // без capacity
 	fmt.Println("map2 =", map2, "; len (map2) =", len(map2))
 
