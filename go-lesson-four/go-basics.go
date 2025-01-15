@@ -12,7 +12,8 @@ import (
 func main() {
 	fmt.Println("Lesson_04")
 	//demonstrateMaxMinForTypes()
-	demonstrateCheckedUncheckedErrors()
+	//demonstrateCheckedUncheckedErrors()
+	runReadFromConsole()
 }
 
 const ()
@@ -149,7 +150,7 @@ func runReadFromConsole() {
 
 	pause()
 
-	fmt.Println("Scan-3. Введите цвет, целое число, дробное число и значение true или false...")
+	fmt.Println("Scan-3. Введите цвет, целое число, дробное число и значение true или false через пробел")
 	color, intValue, floatValue, boolValue := "", 0, 0.0, false
 	count, err := fmt.Scan(&color, &intValue, &floatValue, &boolValue)
 	fmt.Printf("Считано % строк. Ошибка %v\n", count, err)
@@ -157,7 +158,7 @@ func runReadFromConsole() {
 
 	pause()
 
-	fmt.Println("Scan1n-4. Введите любимый фрукт, суммарное количество пальцев на руках...")
+	fmt.Println("Scanln-4. Введите любимый фрукт, суммарное количество пальцев на руках...")
 	fruit, fingers := "", 0
 	count, err = fmt.Scan(&fruit, &fingers)
 	fmt.Printf("Считано %d строк. Ошибка = %v\n", count, err)
@@ -165,7 +166,7 @@ func runReadFromConsole() {
 
 	pause()
 
-	fmt.Println("Scan1n-5. Попробуйте ввести топ-3 любимых книги...")
+	fmt.Println("Scanln-5. Попробуйте ввести топ-3 любимых книги...")
 	var favoriteBook1, favoriteBook2, favoriteBook3 string
 	fmt.Scanln(&favoriteBook1, &favoriteBook2, &favoriteBook3)
 	fmt.Printf("Ваши любимые книги: \n1) [%s]\n2) [%s]\n3) [%s]\n\n", favoriteBook1, favoriteBook2, favoriteBook3)
@@ -197,4 +198,14 @@ func runReadFromConsole() {
 		blogers = append(blogers, scannedText)
 	}
 	fmt.Println("Ваши любимые блогеры:")
+
+	for index, bloger := range blogers {
+		fmt.Println(index, bloger)
+	}
+	pause()
+
+}
+
+func pause() {
+
 }
