@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -87,19 +88,37 @@ func demonstrateCheckedUncheckedErrors() {
 	int8Value2, err := strconv.ParseInt("129", 10, 8)
 	fmt.Printf("int8Value2 = %d, err = %v \n", int8Value2, err)
 
-	fmt.Printf("err as...\n* v: [%v]\n +v: [%+v]\n s: [%s]\n * +5: [%s]\n", err, err, err, err)
+	fmt.Printf("err as...\n* v: [%v]\n +v: [%+v]\n s: [%s]\n * +s: [%s]\n", err, err, err, err)
 
-	// intArray := [2]int{100, 500}
-	// outOfRange Index:= len(intArray)
-	// fmt.Println(intArray [outOfRangeIndex])
+	intArray := [2]int{100, 500}
+	outOfRangeIndex := len(intArray)
+	fmt.Println(intArray[outOfRangeIndex])
 
 	var strErr string = err.Error()
 	// var strError string = err
 	fmt.Println("err.Error:", strErr)
 }
 
-//func getPrice(itemInfo string) (float64, error) {
-//}
+func getPrice(itemInfo string) (float64, error) {
+	fmt.Printf("ОБРАБОТКА СТРОКИ [%s]\n", itemInfo)
+
+	if itemInfo == "" {
+		return 0, &EmptyItemInfoError{}
+	}
+
+	priceIndex := strings.Index(itemInfo, "price:")
+	if priceIndex == -1 {
+		return 0, &NoPriceInItemInfoError{itemInfo}
+	}
+
+	var priceString string = itemInfo[priceIndex+6:]
+	priceFloat64, err := strconv.ParseFloat(priceString, 64)
+	if err == nil {
+		return priceFloat64, nil
+	}
+	return 0, fmt.Errorf("Некорректная стоимость товара в строке [%s]", itemInfo)
+}
+
 //
 //func pretendReadingItemInfoFromKeyboard() [] string {
 //}
