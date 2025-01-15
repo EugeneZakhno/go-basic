@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"math"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -85,7 +87,7 @@ func demonstrateCheckedUncheckedErrors() {
 	int8Value1, err := strconv.ParseInt("127", 10, 8)
 	fmt.Printf("int8Value1 = %d, err = %v \n", int8Value1, err)
 
-	int8Value2, err := strconv.ParseInt("129", 10, 8)
+	int8Value2, err := strconv.ParseInt("127", 10, 8)
 	fmt.Printf("int8Value2 = %d, err = %v \n", int8Value2, err)
 
 	fmt.Printf("err as...\n* v: [%v]\n +v: [%+v]\n s: [%s]\n * +s: [%s]\n", err, err, err, err)
@@ -125,4 +127,74 @@ func getPrice(itemInfo string) (float64, error) {
 //
 
 func inputNewItemInfo(itemsInfo *[]string) {
+}
+
+// Read From Console
+func runReadFromConsole() {
+
+	// import fmt
+	fmt.Println("Scan-1. Введите ответ на главный вопрос жизни, вселенной и всего такого...")
+
+	var answer string
+	fmt.Scan(&answer)
+	fmt.Printf("Ответ на главный вопрос жизни, вселенной и всего такого: [%s]\n\n", answer)
+
+	pause()
+	pause()
+
+	fmt.Println("Scan-2. Это значение ввести не удастся...")
+	var skippedVariable string
+	fmt.Scan(skippedVariable)
+	fmt.Printf("Я же говорю, не удастся: [%s]\n\n", skippedVariable)
+
+	pause()
+
+	fmt.Println("Scan-3. Введите цвет, целое число, дробное число и значение true или false...")
+	color, intValue, floatValue, boolValue := "", 0, 0.0, false
+	count, err := fmt.Scan(&color, &intValue, &floatValue, &boolValue)
+	fmt.Printf("Считано % строк. Ошибка %v\n", count, err)
+	fmt.Printf("Цвет: %5, целое число: %d, дробное число: %f, булево: %v\n\n", color, intValue, floatValue, boolValue)
+
+	pause()
+
+	fmt.Println("Scan1n-4. Введите любимый фрукт, суммарное количество пальцев на руках...")
+	fruit, fingers := "", 0
+	count, err = fmt.Scan(&fruit, &fingers)
+	fmt.Printf("Считано %d строк. Ошибка = %v\n", count, err)
+	fmt.Printf("Любимый фрукт: %5, количество пальцев на руках: %d\n\n", fruit, fingers)
+
+	pause()
+
+	fmt.Println("Scan1n-5. Попробуйте ввести топ-3 любимых книги...")
+	var favoriteBook1, favoriteBook2, favoriteBook3 string
+	fmt.Scanln(&favoriteBook1, &favoriteBook2, &favoriteBook3)
+	fmt.Printf("Ваши любимые книги: \n1) [%s]\n2) [%s]\n3) [%s]\n\n", favoriteBook1, favoriteBook2, favoriteBook3)
+
+	fmt.Println("Scan 6. Ещё раз попробуйте ввести топ-3 любимых книги...")
+	fmt.Scan(&favoriteBook1, &favoriteBook2, &favoriteBook3)
+	fmt.Printf("Ваши любимые книги: \n1) [%s]\n2) [%s]\n3) [%s]\n\n", favoriteBook1, favoriteBook2, favoriteBook3)
+
+	pause()
+
+	// import bufio
+	fmt.Println("bufio-7. Ещё раз попробуйте ввести топ-3 любимых книги...")
+	reader := bufio.NewReader(os.Stdin)
+	favoriteBook1, _ = reader.ReadString('\n')
+	favoriteBook2, _ = reader.ReadString('\n')
+	favoriteBook3, _ = reader.ReadString('\n')
+	fmt.Printf("Ваши любимые книги: \n1) [%s]\n2) [%s]\n3) [%s]\n\n", favoriteBook1, strings.ToUpper(favoriteBook2),
+		strings.TrimSpace(favoriteBook3))
+
+	fmt.Println("bufio-8. Введите любимых блогеров, в конце набрав \"конец\"...")
+	scanner := bufio.NewScanner(os.Stdin)
+	blogers := []string{}
+	for {
+		scanner.Scan()
+		scannedText := scanner.Text()
+		if scannedText == "конец" {
+			break
+		}
+		blogers = append(blogers, scannedText)
+	}
+	fmt.Println("Ваши любимые блогеры:")
 }
