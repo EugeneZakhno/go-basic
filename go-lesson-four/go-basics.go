@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 	"math"
+	"strconv"
 )
 
 func main() {
 	fmt.Println("Lesson_04")
-	demonstrateMaxMinForTypes()
+	//demonstrateMaxMinForTypes()
+	demonstrateCheckedUncheckedErrors()
 }
 
 const ()
@@ -74,4 +76,34 @@ func demonstrateMaxMinForTypes() {
 }
 
 func demonstrateMaxMinBetweenValues() {
+}
+
+// Errors
+func demonstrateCheckedUncheckedErrors() {
+
+	int8Value1, err := strconv.ParseInt("127", 10, 8)
+	fmt.Printf("int8Value1 = %d, err = %v \n", int8Value1, err)
+
+	int8Value2, err := strconv.ParseInt("129", 10, 8)
+	fmt.Printf("int8Value2 = %d, err = %v \n", int8Value2, err)
+
+	fmt.Printf("err as...\n* v: [%v]\n +v: [%+v]\n s: [%s]\n * +5: [%s]\n", err, err, err, err)
+
+	// intArray := [2]int{100, 500}
+	// outOfRange Index:= len(intArray)
+	// fmt.Println(intArray [outOfRangeIndex])
+
+	var strErr string = err.Error()
+	// var strError string = err
+	fmt.Println("err.Error:", strErr)
+}
+
+//func getPrice(itemInfo string) (float64, error) {
+//}
+//
+//func pretendReadingItemInfoFromKeyboard() [] string {
+//}
+//
+
+func inputNewItemInfo(itemsInfo *[]string) {
 }
