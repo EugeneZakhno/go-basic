@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"time"
 )
@@ -8,6 +9,7 @@ import (
 func main() {
 	fmt.Println("Lesson_05")
 	runTime()
+	runInterfaces()
 }
 
 func runTime() {
@@ -24,8 +26,6 @@ func runTime() {
 
 // Интерфейсы
 func printSomething(index int, i interface{}) {
-}
-func runInterfaces() {
 }
 
 // Утверждение типов
@@ -203,4 +203,36 @@ func demonstrateTimeDifference() {
 	fmt.Println("Разница в часax:", differenceInSeconds/(60*60))
 	fmt.Println("Разница в минутах:", differenceInSeconds/60)
 	fmt.Println("Разница в секундах:", differenceInSeconds)
+}
+
+//  Interfaces
+
+func runInterfaces() {
+	racoon := Racoon{"Гоша"}
+	cuckoo := Cuckoo{"Зоя"}
+
+	_, _ = []Racoon{racoon}, []Cuckoo{cuckoo}
+	// = []Racoon{racoon, cuckoo), [] Cuckoo{racoon, cuckoo}
+
+	animals := []Animal{racoon, cuckoo}
+	animals = append(animals, Deer{"Олеша"})
+	// animals append(animals, Animal ("Безымянный зверь"})
+	fmt.Printf("%+v \n", animals)
+
+	for _, animal := range animals {
+		fmt.Printf("> %s говорит:\n", animal.GetName())
+		animal.Print()
+	}
+
+	things := []interface{}{
+		42,
+		"Don't panic!",
+		animals,
+		errors.New("Какая-то ошибка"),
+		nil,
+		runInterfaces,
+	}
+	for i, thing := range things {
+		printSomething(i, thing)
+	}
 }
