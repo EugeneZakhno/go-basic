@@ -9,7 +9,6 @@ func main() {
 	fmt.Println("Lesson_05")
 	runTime()
 }
-func demonstrateDuration() {}
 
 func demonstrateTimeDifference() {
 }
@@ -20,8 +19,8 @@ func runTime() {
 	demonstrateTimeUnixCreation()
 	demonstrateFormatToString()
 	demonstrateParse()
-	//	demonstrateComparison()
-	//demonstrateDuration()
+	demonstrateComparison()
+	demonstrateDuration()
 	demonstrateTimeDifference()
 }
 
@@ -132,4 +131,49 @@ func demonstrateParse() {
 	fmt.Println(time.Parse("15:04", "03:02"))
 	fmt.Println(time.Parse("2006-01-02", "1929-05-04"))
 	fmt.Println(time.Parse("01/02/2006", "04/05/1929"))
+}
+
+func demonstrateComparison() {
+	now := time.Now()
+	tokenExpiration := now.Add(time.Hour * 2)
+	fmt.Printf("Сейчас %02d:%02d:%02d, срок действия токена заканчивается в %02d:%02d:%02d", now.Hour(),
+		now.Minute(), now.Second(), tokenExpiration.Hour(), tokenExpiration.Minute(), tokenExpiration.Second())
+	fmt.Println("Токен уже деактивирован?", tokenExpiration.Before(now))
+	fmt.Println("Токен ещё активен?", now.Before(tokenExpiration))
+
+	var sameTime time.Time = now.Add(time.Hour * 2)
+	fmt.Printf("Срок действия токена [%s] равен таким же дате и времени [%s]? %v \n", tokenExpiration, sameTime,
+		tokenExpiration.Equal(sameTime))
+
+	var futureTime time.Time = tokenExpiration.Add(time.Minute * 65)
+	fmt.Printf("Cрок действия токена [%s] равен большей дате [%s]? % \n", tokenExpiration, futureTime, tokenExpiration.Equal(futureTime))
+
+	var pastTime time.Time = tokenExpiration.Add(time.Second - 3600)
+	fmt.Printf("Cрок действия токена [%s] равен меньшей дате [%s]? %v \n", tokenExpiration, pastTime, tokenExpiration.Equal(pastTime))
+
+	fmt.Println("Compare: сравнить одинаковые значение:", tokenExpiration.Compare(now.Add(time.Hour*2))) // 0 - это true
+	fmt.Println("Compare: сравнить меньшее большим:", now.Compare(tokenExpiration))                      // -1
+	fmt.Println("Compare: сравнить большее меньшим:", tokenExpiration.Compare(now))                      // 1
+}
+
+func demonstrateDuration() {
+	var soupCookingStartTime time.Time = time.Now()
+	var soupCookingDuration time.Duration = time.Duration(time.Hour*2 + time.Minute*15)
+	fmt.Println("Сейчас", soupCookingStartTime)
+	fmt.Println("Варить суп следует", soupCookingDuration)
+	soupCookingDuration += time.Second * 75
+	fmt.Println("Но лучше варить его ровно", soupCookingDuration)
+	// soupWillBeReady time.Hour
+	// soupWillBeReady soupWill BeReady
+	var spoiledSoupDuration time.Duration = soupCookingDuration
+	spoiledSoupDuration -= time.Hour
+	fmt.Println("CСуп будет недоварен если готовить его", spoiledSoupDuration)
+	fmt.Printf("Правильная продолжительность варки супа %, либо % часов, либо % минут, либо % секунд, либо же 1% миллисекунд \n",
+		soupCookingDuration, soupCookingDuration.Hours(), soupCookingDuration.Minutes(), soupCookingDuration.Seconds(), soupCookingDuration.Milliseconds())
+	var soupWillBeReady time.Time = soupCookingStartTime.Add(soupCookingDuration)
+	fmt.Println("Супер должен быть готов к", soupWillBeReady)
+	var startToThinkAboutSoupTime time.Time = soupCookingStartTime.Add(time.Hour * -4)
+	fmt.Println("Начала думать о приготовлении супа", startToThinkAboutSoupTime)
+	var thinkingAboutSoupDuration time.Duration = startToThinkAboutSoupTime.Sub(soupCookingStartTime)
+	fmt.Println("От идеи приготовить суп до начала его приготовления прошло", thinkingAboutSoupDuration)
 }
