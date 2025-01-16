@@ -10,8 +10,6 @@ func main() {
 	runTime()
 }
 
-func demonstrateTimeDifference() {
-}
 func runTime() {
 	// import "time"
 	demonstrateBasicDateCreation()
@@ -161,19 +159,48 @@ func demonstrateDuration() {
 	var soupCookingDuration time.Duration = time.Duration(time.Hour*2 + time.Minute*15)
 	fmt.Println("Сейчас", soupCookingStartTime)
 	fmt.Println("Варить суп следует", soupCookingDuration)
+
 	soupCookingDuration += time.Second * 75
+
 	fmt.Println("Но лучше варить его ровно", soupCookingDuration)
+
 	// soupWillBeReady time.Hour
 	// soupWillBeReady soupWill BeReady
+
 	var spoiledSoupDuration time.Duration = soupCookingDuration
 	spoiledSoupDuration -= time.Hour
-	fmt.Println("CСуп будет недоварен если готовить его", spoiledSoupDuration)
+	fmt.Println("Cуп будет недоварен если готовить его", spoiledSoupDuration)
 	fmt.Printf("Правильная продолжительность варки супа %, либо % часов, либо % минут, либо % секунд, либо же 1% миллисекунд \n",
 		soupCookingDuration, soupCookingDuration.Hours(), soupCookingDuration.Minutes(), soupCookingDuration.Seconds(), soupCookingDuration.Milliseconds())
+
 	var soupWillBeReady time.Time = soupCookingStartTime.Add(soupCookingDuration)
 	fmt.Println("Супер должен быть готов к", soupWillBeReady)
+
 	var startToThinkAboutSoupTime time.Time = soupCookingStartTime.Add(time.Hour * -4)
 	fmt.Println("Начала думать о приготовлении супа", startToThinkAboutSoupTime)
+
 	var thinkingAboutSoupDuration time.Duration = startToThinkAboutSoupTime.Sub(soupCookingStartTime)
 	fmt.Println("От идеи приготовить суп до начала его приготовления прошло", thinkingAboutSoupDuration)
+}
+
+func demonstrateTimeDifference() {
+	date2023 := time.Date(2023, 12, 31, 23, 59, 59, 0, time.Local)
+	date2024 := date2023.Add(time.Duration(time.Second * 2))
+
+	readableFormat := "02.01.2006 15:04:05"
+	fmt.Println(date2023.Format(readableFormat))
+	fmt.Println(date2024.Format(readableFormat))
+
+	var yearsBetween int = date2024.Year() - date2023.Year()
+	fmt.Println("Неправильная разница в годах: ", yearsBetween)
+
+	date2025 := date2023.Add(time.Duration(time.Hour*24*(365+1) + time.Second*2))
+	fmt.Println(date2025.Format(readableFormat))
+
+	var differenceInSeconds int64 = date2025.Unix() - date2023.Unix()
+	fmt.Println("Разница в годах:", differenceInSeconds/(60*60*24*365))
+	fmt.Println("Разница в днях:", differenceInSeconds/(60*60*24))
+	fmt.Println("Разница в часax:", differenceInSeconds/(60*60))
+	fmt.Println("Разница в минутах:", differenceInSeconds/60)
+	fmt.Println("Разница в секундах:", differenceInSeconds)
 }
