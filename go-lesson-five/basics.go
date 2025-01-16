@@ -16,8 +16,8 @@ func demonstrateTimeDifference() {
 func runTime() {
 	// import "time"
 	demonstrateBasicDateCreation()
-	//demonstrateTimeDateCreation()
-	//demonstrateTimeUnixCreation()
+	demonstrateTimeDateCreation()
+	demonstrateTimeUnixCreation()
 	//demonstrateFormatToString()
 	//demonstrateParse()
 	//	demonstrateComparison()
@@ -50,9 +50,11 @@ func demonstrateBasicDateCreation() {
 	fmt.Printf("%d %s %d year %02d:%02d:%02d \n", currentDay, currentMonth.String(), currentYear, currentHour, currentMinute, currentSecond)
 
 }
+
 func demonstrateTimeDateCreation() {
 	var leoDiCaprioBirthLocation *time.Location
-	//leoDiCaprioBirthLocation, _ = time.LoadLocation(locations[0])
+	var locations [100]string
+	leoDiCaprioBirthLocation, _ = time.LoadLocation(locations[0])
 	fmt.Println(leoDiCaprioBirthLocation)
 	leoDiCaprioBirthDate := time.Date(1974, time.November, 11, 2, 47, 4, 8, leoDiCaprioBirthLocation) // 11 Ноября 1974
 
@@ -69,6 +71,19 @@ func demonstrateTimeDateCreation() {
 		leoLocation, leoDay, int(leoMonth), leoYear, leoHour, leoMinute)
 	fmt.Printf("leo родился в %0 день %0 года, день недели: %s \n", leoDiCaprioBirthDate.YearDay(), leoDiCaprioBirthDate.Year(), leoDiCaprioBirthDate.Weekday())
 }
-func demonstrateTimeUnixCreation() {}
-func demonstrateFormatToString()   {}
-func demonstrateParse()            {}
+
+func demonstrateTimeUnixCreation() {
+	fmt.Println("Точка отсчёта", time.UTC, time.Unix(0, 0).In(time.UTC))
+	var johnnyDeppBirthDateInSeconds int64 = -207141360 // 9 Июня 1963 8:44
+	var johnnyDeppBirthDate time.Time = time.Unix(johnnyDeppBirthDateInSeconds, 0)
+	fmt.Println("День рождения Джонни Деппа по Европе:", johnnyDeppBirthDate)
+	var locations [100]string
+	usaLocation, _ := time.LoadLocation(locations[0])
+	johnnyDeppBirthDate = time.Unix(johnnyDeppBirthDateInSeconds, 0).In(usaLocation)
+	fmt.Println("День рождения Джонни Деппа по США:", johnnyDeppBirthDate)
+	myLocation, _ := time.LoadLocation(locations[1])
+	fmt.Println("Точка отсчёта", myLocation, time.Unix(0, 0).In(myLocation))
+}
+
+func demonstrateFormatToString() {}
+func demonstrateParse()          {}
