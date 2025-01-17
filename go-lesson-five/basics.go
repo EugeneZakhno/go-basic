@@ -47,7 +47,6 @@ func demonstrateBasicDateCreation() {
 	fmt.Printf("%d %s %d year %02d:%02d:%02d \n", currentDay, currentMonth.String(), currentYear, currentHour, currentMinute, currentSecond)
 
 }
-
 func demonstrateTimeDateCreation() {
 	var leoDiCaprioBirthLocation *time.Location
 	var locations [100]string
