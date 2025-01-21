@@ -31,7 +31,7 @@ func runTime() {
 
 }
 
-// Утверждение типов
+// Утверждение типов (ниже)
 //func parseStringToInt8(value string) (int, error) {
 //	return
 //}
@@ -355,4 +355,8 @@ func runLog() {
 	log.SetFlags(log.LstdFlags | log.LUTC)
 	log.Println("Log with date and time in UTC, not local time zone")
 	// log.Fatalln("\n[ Directed by ) \n [ ROBERT B. WEIDE]")
+	// log.Panicln("After this line is printed, panic will begin.")
+	log.SetFlags(log.LstdFlags | log.Lmsgprefix)
+	log.SetPrefix("msg: ")
+	log.Println("Log with prefix after time")
 }
