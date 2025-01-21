@@ -3,6 +3,9 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
+	"os"
+	"os/user"
 	"strconv"
 	"time"
 )
@@ -15,14 +18,16 @@ func main() {
 
 func runTime() {
 	// import "time"
-	demonstrateBasicDateCreation()
-	demonstrateTimeDateCreation()
-	demonstrateTimeUnixCreation()
-	demonstrateFormatToString()
-	demonstrateParse()
-	demonstrateComparison()
-	demonstrateDuration()
-	demonstrateTimeDifference()
+	//	demonstrateBasicDateCreation()
+	//	demonstrateTimeDateCreation()
+	//	demonstrateTimeUnixCreation()
+	//	demonstrateFormatToString()
+	//	demonstrateParse()
+	//	demonstrateComparison()
+	//	demonstrateDuration()
+	//	demonstrateTimeDifference()
+
+	runLog()
 
 }
 
@@ -260,13 +265,77 @@ func runTypeAssertion() {
 	fmt.Println(emptyError.Error())
 
 	_, err = parseStringToInt8("128")
-	if emptyError, ok := err.(*EmptyItemInfoError); ok {
+	if emptyError, ok := err.(*EmptyItemInfoError); ok { // ok - говорит о том, удалось ли нам утвердить этот тип
 		fmt.Println(emptyError.Error())
 	} else if convertError, ok := err.(*ConvertToInt8Error); ok {
 		fmt.Println(convertError.Error())
 	}
 
+	// создадим слайс Животные
 	animals := []Animal{Racoon{"Гоша"}, Cuckoo{"Зоя"}}
 	animalDeer := Animal(Deer{"Олеша"})
 	animals = append(animals, animalDeer)
+
+	for _, animal := range animals {
+
+		switch exactAnimal := animal.(type) {
+		case Racoon:
+			fmt.Println("Я енот", exactAnimal.GetName())
+			exactAnimal.InvestigateGarbage()
+		case Cuckoo:
+			fmt.Printf("Я кукушка %5, а тебе, возможно, осталось %0 лет. Но это не точно. \n", exactAnimal.GetName(), exactAnimal.GetYearLeft())
+		case Deer:
+			fmt.Printf("Я олень %5 и вот моё фото: %s\n", exactAnimal.name, exactAnimal.GetPicture())
+			// case int8:
+			// fmt.Println("Невозможно")
+		}
+	}
+
+	stuff := []interface{}{
+		Racoon{"Гоша"},
+		int8(15),
+	}
+
+	for _, s := range stuff {
+
+		switch e := s.(type) {
+		case Racoon:
+			fmt.Println("Я енот", e.GetName())
+			e.InvestigateGarbage()
+		case Cuckoo:
+			fmt.Printf("Я кукушка %, а тебе, возможно, осталось %0 лет. Но это не точно. \n", e.GetName(), e.GetYearLeft())
+		case Deer:
+			fmt.Printf("Я олень %5 и вот моё фото: %s.\n", e.name, e.GetPicture())
+		case int8:
+			fmt.Println("А я число", e, "типа int8") // e не знаю почему не находит
+		}
+	}
+
+}
+
+// Логирование
+func runLog() {
+	// import "log"
+	log.Println("func runLog() was called")
+	currentUser, _ := user.Current()
+	log.Printf("func runLog() was called by user [%s]\n", currentUser.Username)
+	log.SetPrefix("Logged record ")
+	log.Println("Message with prefix")
+	log.SetPrefix("")
+	log.Println("Message without prefix")
+
+	filePath := fmt.Sprintf("log_%s.txt", time.Now().Format("2006-01-02 15:04:05"))
+	// filePath = ""
+	if logFile, err := os.Create(filePath); err != nil {
+		log.Panicf("Cannot create file %s", filePath)
+	} else {
+		defer os.Remove(filePath) // Не перепечатывай эту строку!
+		defer logFile.Close()     // Порядок важен.
+		log.SetOutput(logFile)
+	}
+
+	log.Println("You can't see this message in the debug console")
+	log.Println("But you can see it in", filePath)
+	log.SetOutput(os.Stdout)
+	log.Println("You can't see this message in the file")
 }
