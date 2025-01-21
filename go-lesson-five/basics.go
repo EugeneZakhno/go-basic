@@ -324,7 +324,7 @@ func runLog() {
 	log.SetPrefix("")
 	log.Println("Message without prefix")
 
-	filePath := fmt.Sprintf("log_%s.txt", time.Now().Format("2006-01-02 15:04:05"))
+	filePath := fmt.Sprintf("logs/log_%s.txt", time.Now().Format("2006-01-02 15:04:05"))
 	// filePath = ""
 	if logFile, err := os.Create(filePath); err != nil {
 		log.Panicf("Cannot create file %s", filePath)
@@ -338,4 +338,21 @@ func runLog() {
 	log.Println("But you can see it in", filePath)
 	log.SetOutput(os.Stdout)
 	log.Println("You can't see this message in the file")
+
+	// log.SetFlags (1)
+	log.SetFlags(log.Ldate)
+	log.Println("Log with dat only (without time)")
+
+	log.SetFlags(log.Ldate | log.Ltime)
+	log.Println("Log with date and time")
+
+	log.SetFlags(log.Ltime)
+	log.Println("Log with time only (without date)")
+
+	log.SetFlags(log.LstdFlags)
+	log.Println("Log with date and time")
+
+	log.SetFlags(log.LstdFlags | log.LUTC)
+	log.Println("Log with date and time in UTC, not local time zone")
+	// log.Fatalln("\n[ Directed by ) \n [ ROBERT B. WEIDE]")
 }
