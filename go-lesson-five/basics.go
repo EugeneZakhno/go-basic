@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"strconv"
 	"time"
 )
 
@@ -22,10 +23,7 @@ func runTime() {
 	demonstrateComparison()
 	demonstrateDuration()
 	demonstrateTimeDifference()
-}
 
-// Интерфейсы
-func printSomething(index int, i interface{}) {
 }
 
 // Утверждение типов
@@ -206,6 +204,10 @@ func demonstrateTimeDifference() {
 
 //  Interfaces
 
+func printSomething(index int, i interface{}) {
+	fmt.Printf("%d", "Что-то не понятного типа: %+v\n", index+1, i)
+}
+
 func runInterfaces() {
 	racoon := Racoon{"Гоша"}
 	cuckoo := Cuckoo{"Зоя"}
@@ -234,4 +236,37 @@ func runInterfaces() {
 	for i, thing := range things {
 		printSomething(i, thing)
 	}
+}
+
+// Утверждение типов
+func parseStringToInt8(value string) (int8, error) {
+
+	if value == "" {
+		return 0, &EmptyItemInfoError{}
+	}
+
+	parsedValue, err := strconv.ParseInt(value, 10, 8)
+
+	if err != nil {
+		return 0, &ConvertToInt8Error{value}
+	}
+
+	return int8(parsedValue), nil
+}
+
+func runTypeAssertion() {
+	_, err := parseStringToInt8("")
+	emptyError := err.(*EmptyItemInfoError)
+	fmt.Println(emptyError.Error())
+
+	_, err = parseStringToInt8("128")
+	if emptyError, ok := err.(*EmptyItemInfoError); ok {
+		fmt.Println(emptyError.Error())
+	} else if convertError, ok := err.(*ConvertToInt8Error); ok {
+		fmt.Println(convertError.Error())
+	}
+
+	animals := []Animal{Racoon{"Гоша"}, Cuckoo{"Зоя"}}
+	animalDeer := Animal(Deer{"Олеша"})
+	animals = append(animals, animalDeer)
 }
