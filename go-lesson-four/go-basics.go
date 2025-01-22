@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"math"
 	"os"
@@ -26,13 +27,13 @@ type Author struct {
 }
 
 func runLessons() {
-	runLesson(runMath)
-	runLesson(runRandom)
-	runLesson(runSlicesSort)
-	runLesson(runDefer)
-	runLesson(runErrors)
-	runLesson(runReadWriteToFile)
-	runLesson(runReadFromConsole)
+	//runLesson(runMath)
+	//runLesson(runRandom)
+	//runLesson(runSlicesSort)
+	//runLesson(runDefer)
+	//runLesson(runErrors)
+	//runLesson(runReadWriteToFile)
+	//runLesson(runReadFromConsole)
 }
 
 // MAth
@@ -173,18 +174,79 @@ func writeTextToFile(fileName, str string) {
 }
 
 func runReadWriteToFile() {
-	pricelist := "Mango: 5.70\nBanana: 2.35\nOrange: 2.20\nApple \"Golden\":1.95"
+	pricelist := "Mango: 5.70\nBanana: 2.35\nOrange: 2.20\nAppleGolden: 1.95"
 	writeTextToFile(TEXT_FILE_NAME, pricelist)
 	defer os.Remove(TEXT_FILE_NAME)
 	textFromFile := readTextFromFile(TEXT_FILE_NAME)
 	fmt.Println(textFromFile)
-	documents := []Document{}
+
+	documents := []Document{
+		{
+			Id:   75951,
+			Type: "Реализация товаров и услуг",
+			Goods: []Good{
+				{Id: 75, Name: "Книга Сага (Тонино Бенаквиста, 1997)"},
+				{Id: 11, Name: "Доставка"},
+			},
+			Author: &Employee{Id: 24, Name: "Одри Хорн", Position: "Менеджер по продажам"},
+		},
+		{
+			Id:   13500,
+			Type: "Поступление товаров и услуг",
+			Goods: []Good{
+				{Id: 285, Name: "Кофемашина Samsung"},
+				{Id: 289, Name: "Капсулы для кофемашины (500 шт)"},
+			},
+			Author: &Employee{Id: 7, Name: "Шелли Джонсон", Position: "Менеджер по закупкам"},
+		},
+	}
 
 	writeDocumentsToJsonFile(JSON_FILE_NAME, &documents)
 	defer os.Remove(JSON_FILE_NAME)
 
 	documentsFromFile := readDocumentsFromJsonFile(JSON_FILE_NAME)
 	printDocuments("Прочитаны документы:", documentsFromFile)
+}
+
+func writeDocumentsToJsonFile(fileName string, documents *[]Document) {
+	file, err := os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	encoder.Encode(documents)
+	printDocuments("Записаны документы:", documents)
+}
+
+func printDocuments(header string, documents *[]Document) {
+}
+
+func readDocumentsFromJsonFile(fileName string) *[]Document {
+	bytesFromFile, err := os.ReadFile(fileName)
+	if err != nil {
+		panic(err)
+	}
+
+	strFromFile := string(bytesFromFile)
+	reader := strings.NewReader(strFromFile)
+	decoder := json.NewDecoder(reader)
+
+	var documentsFromFile []Document
+	err = decoder.Decode(&documentsFromFile)
+	if err != nil {
+		panic(err)
+	}
+	return &documentsFromFile
+}
+
+func readTextFromFile(fileName string) string {
+	str, err := os.ReadFile(fileName)
+	if err != nil {
+		panic(err)
+	}
+	return string(str)
 }
 
 // Read From Console
@@ -197,7 +259,6 @@ func runReadFromConsole() {
 	fmt.Scan(&answer)
 	fmt.Printf("Ответ на главный вопрос жизни, вселенной и всего такого: [%s]\n\n", answer)
 
-	pause()
 	pause()
 
 	fmt.Println("Scan-2. Это значение ввести не удастся...")
