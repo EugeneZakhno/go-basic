@@ -13,22 +13,26 @@ func main() {
 	fmt.Println("Lesson_04")
 	//demonstrateMaxMinForTypes()
 	//demonstrateCheckedUncheckedErrors()
+	runLessons()
 	runReadFromConsole()
 }
 
-const ()
+const (
+	TEXT_FILE_NAME = "documents/price-list.txt"
+	JSON_FILE_NAME = "documents/documents.json"
+)
 
 type Author struct {
 }
 
 func runLessons() {
-	//runLesson (runMath)
-	//runLesson (runRandom)
-	//runLesson (runSlicesSort)
-	//runLesson (runDefer)
-	//runLesson (runErrors)
-	//runLesson (runReadWriteToFile)
-	//runLesson (runReadFromConsole)
+	runLesson(runMath)
+	runLesson(runRandom)
+	runLesson(runSlicesSort)
+	runLesson(runDefer)
+	runLesson(runErrors)
+	runLesson(runReadWriteToFile)
+	runLesson(runReadFromConsole)
 }
 
 // MAth
@@ -82,6 +86,9 @@ func demonstrateMaxMinForTypes() {
 func demonstrateMaxMinBetweenValues() {
 }
 
+func demonstrateRounding() {
+}
+
 // Errors
 func demonstrateCheckedUncheckedErrors() {
 
@@ -128,6 +135,56 @@ func getPrice(itemInfo string) (float64, error) {
 //
 
 func inputNewItemInfo(itemsInfo *[]string) {
+}
+
+// Read & Write To File
+func writeTextToFile(fileName, str string) {
+	/*
+			Permissions : для файла
+
+		вот из этой строки, которая ниже os.WriteFile(fileName, bytesToWrite, 0644)
+			 РЕЖИМ ФАЙЛА
+			0 - обычный файл
+			1 - папка
+			2 ссылка
+			3 сокет
+			4 файл устройства
+			5 именованный канал
+			6 и 7 зарезервированы для использования в будущем
+
+			ПРАВА ДОСТУПА К ФАЙЛУ
+			I цифра владелец, права для меня как владельца  0  - нет прав 👇
+			ІІ цифра группа
+			ІІІ цифра остальные
+
+			0 - Нет прав
+			1- Выполнение
+			2- Запись
+			3 Запись + выполнение
+			4 Чтение
+			5 Чтение + выполнение
+			6- Чтение + запись
+			7- Чтение + запись + выполнение
+	*/
+	bytesToWrite := []byte(str)
+	if err := os.WriteFile(fileName, bytesToWrite, 0644); err != nil {
+		panic(err)
+	}
+}
+
+func runReadWriteToFile() {
+	pricelist := "Mango: 5.70\nBanana: 2.35\nOrange: 2.20\nApple \"Golden\":1.95"
+	writeTextToFile(TEXT_FILE_NAME, pricelist)
+	defer os.Remove(TEXT_FILE_NAME)
+	textFromFile := readTextFromFile(TEXT_FILE_NAME)
+	fmt.Println(textFromFile)
+	documents := []Document{}
+
+	writeDocumentsToJsonFile(JSON_FILE_NAME, &documents)
+	defer os.Remove(JSON_FILE_NAME)
+
+	documentsFromFile := readDocumentsFromJsonFile(JSON_FILE_NAME)
+	printDocuments("Прочитаны документы:", documentsFromFile)
 }
 
 // Read From Console
