@@ -11,16 +11,17 @@ import (
 )
 
 func main() {
-	fmt.Println("Lesson_04")
+	fmt.Println("Lesson_04 :")
 	//demonstrateMaxMinForTypes()
 	//demonstrateCheckedUncheckedErrors()
-	runLessons()
-	runReadFromConsole()
+	//runLessons()
+	//runReadFromConsole()
+	runReadWriteToFile()
 }
 
 const (
-	TEXT_FILE_NAME = "documents/price-list.txt"
-	JSON_FILE_NAME = "documents/documents.json"
+	TEXT_FILE_NAME = "go-lesson-four/documents/price-list.txt" // не забывай прописывать путь от корневой папки (начальной)
+	JSON_FILE_NAME = "go-lesson-four/documents/documents.json"
 )
 
 type Author struct {
@@ -141,42 +142,43 @@ func inputNewItemInfo(itemsInfo *[]string) {
 // Read & Write To File
 func writeTextToFile(fileName, str string) {
 	/*
-			Permissions : для файла
+				Permissions : для файла
 
-		вот из этой строки, которая ниже os.WriteFile(fileName, bytesToWrite, 0644)
-			 РЕЖИМ ФАЙЛА
-			0 - обычный файл
-			1 - папка
-			2 ссылка
-			3 сокет
-			4 файл устройства
-			5 именованный канал
-			6 и 7 зарезервированы для использования в будущем
+			вот из этой строки, которая ниже os.WriteFile(fileName, bytesToWrite, 0644)
+				 РЕЖИМ ФАЙЛА
+				0 - обычный файл
+				1 - папка
+				2 ссылка
+				3 сокет
+				4 файл устройства
+				5 именованный канал
+				6 и 7 зарезервированы для использования в будущем
 
-			ПРАВА ДОСТУПА К ФАЙЛУ
-			I цифра владелец, права для меня как владельца  0  - нет прав 👇
-			ІІ цифра группа
-			ІІІ цифра остальные
+				ПРАВА ДОСТУПА К ФАЙЛУ
+		        0 - это первая цифра (режим файла 👆) 0
+				I цифра владелец, права для меня как владельца  0  - нет прав 👇 6
+				ІІ цифра группа 4
+				ІІІ цифра остальные 4
 
-			0 - Нет прав
-			1- Выполнение
-			2- Запись
-			3 Запись + выполнение
-			4 Чтение
-			5 Чтение + выполнение
-			6- Чтение + запись
-			7- Чтение + запись + выполнение
+				0 - Нет прав
+				1- Выполнение
+				2- Запись
+				3 Запись + выполнение
+				4 Чтение
+				5 Чтение + выполнение
+				6- Чтение + запись
+				7- Чтение + запись + выполнение
 	*/
-	bytesToWrite := []byte(str)
-	if err := os.WriteFile(fileName, bytesToWrite, 0644); err != nil {
+	//bytesToWrite := []byte(str)     // можно так и так bytesToWrite или []byte(str) ниже вставить
+	if err := os.WriteFile(fileName, []byte(str), 0644); err != nil {
 		panic(err)
 	}
 }
 
 func runReadWriteToFile() {
-	pricelist := "Mango: 5.70\nBanana: 2.35\nOrange: 2.20\nAppleGolden: 1.95"
+	pricelist := "Mango: - 5.70\nBanana: - 2.35\nOrange: - 2.20\nApple \"Golden\": - 1.95"
 	writeTextToFile(TEXT_FILE_NAME, pricelist)
-	defer os.Remove(TEXT_FILE_NAME)
+	//defer os.Remove(TEXT_FILE_NAME)
 	textFromFile := readTextFromFile(TEXT_FILE_NAME)
 	fmt.Println(textFromFile)
 
