@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"math/rand"
 	"os"
 	"strconv"
 	"strings"
@@ -236,6 +237,37 @@ func runMath() {
 	demonstrateRounding()
 	demonstratePow()
 	demonstrateMod()
+}
+
+// Random
+func runRandom() {
+	// import math/rand
+	var arrayFromToMaxInt [3]int
+	var arrayFromTo99 [3]int
+
+	for i := 0; i <= 2; i++ {
+		var randInt int = rand.Int()
+		arrayFromToMaxInt[i] = randInt
+		fmt.Println(arrayFromToMaxInt)
+		var randIntN int = rand.Intn(100)
+		arrayFromTo99[i] = randIntN
+		fmt.Println(arrayFromTo99)
+	}
+	var randInt32 int32 = rand.Int31() // Обнять...
+	var randInt64 int64 = rand.Int63() // ... и плакать
+	fmt.Println(randInt32, randInt64)
+
+	var randInt32N int32 = rand.Int31n(100) // Принять...
+	var randInt64N int64 = rand.Int63n(100) // ...и смириться
+	fmt.Println(randInt32N, randInt64N)
+
+	var randUint32 uint32 = rand.Uint32()
+	var randUint64 uint64 = rand.Uint64()
+	fmt.Println(randUint32, randUint64)
+
+	var randFloat32 float32 = rand.Float32()
+	var randFloat64 float64 = rand.Float64()
+	fmt.Println(randFloat32, randFloat64)
 }
 
 // Errors
