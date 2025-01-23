@@ -209,7 +209,26 @@ func demonstrateMod() {
 			fmt.Printf("%d делится без остатка на 3\n", i)
 		}
 	}
+	var float64Value1, float64Value2 float64 = 10.1, 3.9
+	//fmt.Println(float64Valuel % float64Value2) // invalid operation: operator % not defined on float64Valuel (variable of type float64)
+	fmt.Println(int(float64Value1) % int(float64Value2))
+	fmt.Println(int(float64Value1), int(float64Value2))
+
+	fmt.Println((7 % -4))
+	fmt.Println((-7 % 4))
+
+	// Mod для чисел с плавающей точкой
+	fmt.Println(math.Mod(9.999, 3.333))  // 9.999/3.333 = 3.0
+	fmt.Println(math.Mod(-9.999, 3.333)) // -9.999/3.333 = -3.0
+	fmt.Println(math.Mod(9.999, -3.333)) // -9.999/3.333 = -3.0
+
+	intValue1, intValue2 := 13, 5
+	result := math.Mod(float64(intValue1), float64(intValue2))
+	fmt.Println(result)
+
+	fmt.Println(math.Mod(10, 3))
 }
+
 func runMath() {
 	// import "math"
 	demonstrateMaxMinForTypes()
