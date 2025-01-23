@@ -11,13 +11,8 @@ import (
 )
 
 func main() {
-	fmt.Println("Lesson_04 :")
+	fmt.Println("Lesson_04_ : https://www.youtube.com/watch?v=Gk6BXGF7mko&list=PLcLNZ0ymDkp7XKi7Yg-4maj4kXBV-mZpF&index=4")
 	runLessons()
-	//demonstrateMaxMinForTypes()
-	//demonstrateCheckedUncheckedErrors()
-	//runLessons()
-	//runReadFromConsole()
-
 }
 
 const (
@@ -39,7 +34,7 @@ func runLessons() {
 }
 
 func runLesson(m func()) {
-
+	m() // Вызов функции m
 }
 
 // Math
@@ -141,6 +136,39 @@ func demonstrateRounding() {
 
 	var roundToEven5, roundToEven6 float64 = math.RoundToEven(2.5), math.RoundToEven(3.5)
 	fmt.Println("roundToEven5", roundToEven5, ", round To Even6", roundToEven6)
+
+	var roundToEven7, roundToEven8 float64 = math.RoundToEven(-2.5), math.RoundToEven(-3.5)
+	fmt.Println("roundToEven7", roundToEven7, ", roundToEven8", roundToEven8)
+
+	// Округление до № знаков
+	number := 1.45 // -> 1.5
+	rounded1 := math.Round(number*10) / 10
+	// 1.45 * 10 = 14.5
+	// Round (14.5) = 15
+	// 15/10 = 1.5
+	fmt.Println("rounded1 =", rounded1)
+
+	number = 1.45 // -> 1.4
+	rounded2 := math.RoundToEven(number*10) / 10
+	// 1.45 10 14.5
+	// RoundToEven (14.5) 14
+	// 14/10 1.4
+	fmt.Println("rounded2 = ", rounded2)
+
+	number = 2.0081 // -> 2.008
+	rounded3 := math.Floor(number*1000) / 1000
+	// 2.0081 * 1000 2008.1
+	// Floor (2008.1) = 2008
+	// 2008 / 1000 = 2.008
+	fmt.Println(rounded3)
+
+	number = 2.0081 // -> 2.009
+	rounded4 := math.Ceil(number*1000) / 1000
+	// 2.0081 * 1000 2008.1
+	// Ceil(2008.1) = 2009
+	// 2009/1000 = 2.009
+	fmt.Println(rounded4)
+
 }
 
 func demonstratePow() {
