@@ -1,4 +1,0 @@
-Mango: - 5.70
-Banana: - 2.35
-Orange: - 2.20
-Apple "Golden": - 1.95

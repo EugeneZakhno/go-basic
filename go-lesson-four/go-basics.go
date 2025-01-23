@@ -145,7 +145,7 @@ func writeTextToFile(fileName, str string) {
 				Permissions : для файла
 
 			вот из этой строки, которая ниже os.WriteFile(fileName, bytesToWrite, 0644)
-				 РЕЖИМ ФАЙЛА
+				0 РЕЖИМ ФАЙЛА
 				0 - обычный файл
 				1 - папка
 				2 ссылка
@@ -178,7 +178,7 @@ func writeTextToFile(fileName, str string) {
 func runReadWriteToFile() {
 	pricelist := "Mango: - 5.70\nBanana: - 2.35\nOrange: - 2.20\nApple \"Golden\": - 1.95"
 	writeTextToFile(TEXT_FILE_NAME, pricelist)
-	//defer os.Remove(TEXT_FILE_NAME)
+	defer os.Remove(TEXT_FILE_NAME)
 	textFromFile := readTextFromFile(TEXT_FILE_NAME)
 	fmt.Println(textFromFile)
 
@@ -204,7 +204,7 @@ func runReadWriteToFile() {
 	}
 
 	writeDocumentsToJsonFile(JSON_FILE_NAME, &documents)
-	defer os.Remove(JSON_FILE_NAME)
+	//defer os.Remove(JSON_FILE_NAME)  // удаляет файл из папки
 
 	documentsFromFile := readDocumentsFromJsonFile(JSON_FILE_NAME)
 	printDocuments("Прочитаны документы:", documentsFromFile)
@@ -219,10 +219,15 @@ func writeDocumentsToJsonFile(fileName string, documents *[]Document) {
 
 	encoder := json.NewEncoder(file)
 	encoder.Encode(documents)
+
 	printDocuments("Записаны документы:", documents)
 }
 
 func printDocuments(header string, documents *[]Document) {
+	fmt.Println(strings.ToUpper(header))
+	for _, doc := range *documents {
+		doc.Print()
+	}
 }
 
 func readDocumentsFromJsonFile(fileName string) *[]Document {
