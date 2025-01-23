@@ -171,11 +171,44 @@ func demonstrateRounding() {
 
 }
 
-func demonstratePow() {
+func demonstratePow() { // работает с float64
+	// Pow
+	var powValue1 float64 = math.Pow(1.1, math.Pi) // 1.1 ³
+	fmt.Println("powValue1 =", powValue1)
 
+	var int8Value1, int8Value2 int8 = 2, 3
+	var powValue2 float64 = math.Pow(float64(int8Value1), float64(int8Value2))
+	fmt.Println("powValue2 =", powValue2)
+
+	var powValue3 float64 = math.Pow(-2, 3)
+	fmt.Println("powValue3", powValue3)
+
+	// Pow10
+	var pow10Value1 float64 = math.Pow10(1)
+	fmt.Println("pow10Value1", pow10Value1)
+
+	var pow10Value2 float64 = math.Pow10(2)
+	fmt.Println("pow10Value2", pow10Value2)
+
+	// = math. Pow10(2.999)
+	var float64Value float64 = 2.999
+	var pow10Value3 float64 = math.Pow10(int(float64Value))
+	fmt.Println("pow10Value3 =", pow10Value3)
 }
-func demonstrateMod() {
 
+func demonstrateMod() {
+	// % для целых чисел
+	fmt.Println("11/3", 11.0/3.0)
+	fmt.Println("11% 3", 11%3)
+	for i := 0; i < 3; i++ {
+		fmt.Println("Индекс =", 1)
+		if i%2 == 0 {
+			fmt.Printf("%d чётное число\n", i)
+		}
+		if i%3 == 0 {
+			fmt.Printf("%d делится без остатка на 3\n", i)
+		}
+	}
 }
 func runMath() {
 	// import "math"
@@ -183,6 +216,7 @@ func runMath() {
 	demonstrateMaxMinBetweenValues()
 	demonstrateRounding()
 	demonstratePow()
+	demonstrateMod()
 }
 
 // Errors
