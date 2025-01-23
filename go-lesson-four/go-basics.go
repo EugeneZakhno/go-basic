@@ -178,7 +178,7 @@ func writeTextToFile(fileName, str string) {
 func runReadWriteToFile() {
 	pricelist := "Mango: - 5.70\nBanana: - 2.35\nOrange: - 2.20\nApple \"Golden\": - 1.95"
 	writeTextToFile(TEXT_FILE_NAME, pricelist)
-	defer os.Remove(TEXT_FILE_NAME)
+	//defer os.Remove(TEXT_FILE_NAME)  // удаляет файл из папки
 	textFromFile := readTextFromFile(TEXT_FILE_NAME)
 	fmt.Println(textFromFile)
 
