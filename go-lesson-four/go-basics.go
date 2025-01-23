@@ -12,15 +12,16 @@ import (
 
 func main() {
 	fmt.Println("Lesson_04 :")
+	runLessons()
 	//demonstrateMaxMinForTypes()
 	//demonstrateCheckedUncheckedErrors()
 	//runLessons()
 	//runReadFromConsole()
-	runReadWriteToFile()
+
 }
 
 const (
-	TEXT_FILE_NAME = "go-lesson-four/documents/price-list.txt" // не забывай прописывать путь от корневой папки (начальной)
+	TEXT_FILE_NAME = "go-lesson-four/documents/price-list.txt" // не забывай прописывать путь от корневой папки (начальной, т.е. название проекта (репозитория))
 	JSON_FILE_NAME = "go-lesson-four/documents/documents.json"
 )
 
@@ -28,16 +29,20 @@ type Author struct {
 }
 
 func runLessons() {
-	//runLesson(runMath)
+	runLesson(runMath)
 	//runLesson(runRandom)
 	//runLesson(runSlicesSort)
 	//runLesson(runDefer)
 	//runLesson(runErrors)
-	//runLesson(runReadWriteToFile)
+	runLesson(runReadWriteToFile)
 	//runLesson(runReadFromConsole)
 }
 
-// MAth
+func runLesson(m func()) {
+
+}
+
+// Math
 func demonstrateMaxMinForTypes() {
 	var maxInt8Value int8 = math.MaxInt8
 	var maxInt16Value int16 = math.MaxInt16
@@ -85,10 +90,71 @@ func demonstrateMaxMinForTypes() {
 	fmt.Println(maxFloat32, maxFloat64)
 }
 
+// Показать минимальные и максимальные значения между типами
 func demonstrateMaxMinBetweenValues() {
+	var maxFloat float64 = math.Max(1.1, 1.2)
+	fmt.Println("max =", maxFloat)
+
+	var minFloat float64 = math.Min(1.1, 1.2)
+	fmt.Println("min =", minFloat)
+
+	minValue := math.Min(1, 2)
+	fmt.Println("min =", minValue)
+
+	var intValue1, intValue2 int = 1, 2
+	// _ = math.Max(intValue1, intValue2) Невозможно передать в функцию Max значения с типом int Golang всеравно преобразует в float64
+	_ = math.Max(float64(intValue1), float64(intValue2))
+
+	var float32Value1, float32Value2 float32 = 1.1, 2.2
+	// _ = math.Min(float32Value1, float32Value2) Невозможно передать в функцию Max значения с типом float32 a Golang всеравно преобразует в float64
+	_ = math.Min(float64(float32Value1), float64(float32Value2))
 }
 
 func demonstrateRounding() {
+	// Ceil всегда ↑
+	var ceil1, ceil2, ceil3 float64 = math.Ceil(2.49), math.Ceil(2.5), math.Ceil(2.51)
+	fmt.Println("ceill", ceil1, ", ceil2", ceil2, ", ceil3 =", ceil3)
+
+	var ceil4, ceil5, ceil6 float64 = math.Ceil(-2.49), math.Ceil(-2.5), math.Ceil(-2.51)
+	fmt.Println("ceil =", ceil4, ", ceil5", ceil5, ", ceil6", ceil6)
+
+	// Floor - всегда ↓
+	var floor1, floor2, floor3 float64 = math.Floor(2.49), math.Floor(2.5), math.Floor(2.51)
+	fmt.Println("floor1", floor1, ", floor2", floor2, ", floor3 =", floor3)
+
+	var floor4, floor5, floor6 float64 = math.Floor(-2.49), math.Floor(-2.5), math.Floor(-2.51)
+	fmt.Println("floor4", floor4, ", floor5", floor5, ", floor6 =", floor6)
+
+	// Round 1 по правилам, где >= *.5 округляет дальше от нуля
+	var round1, round2, round3 float64 = math.Round(2.49), math.Round(2.5), math.Round(2.51)
+	fmt.Println("round1=", round1, ", round2", round2, ", round3", round3)
+
+	var round4, round5, round6 float64 = math.Round(-2.49), math.Round(-2.5), math.Round(-2.51)
+	fmt.Println("round4 =", round4, ", round5", round5, ", round6", round6)
+
+	// RoundToEven округление, где *.5 округляет ближайшего чётного числа
+	var roundToEven1, roundToEven2 float64 = math.RoundToEven(2.49), math.RoundToEven(2.51)
+	fmt.Println("roundToEven1 =", roundToEven1, ", round To Even2 =", roundToEven2)
+
+	var roundToEven3, roundToEven4 float64 = math.RoundToEven(-2.49), math.RoundToEven(-2.51)
+	fmt.Println("roundToEven3", roundToEven3, ", round To Even4", roundToEven4)
+
+	var roundToEven5, roundToEven6 float64 = math.RoundToEven(2.5), math.RoundToEven(3.5)
+	fmt.Println("roundToEven5", roundToEven5, ", round To Even6", roundToEven6)
+}
+
+func demonstratePow() {
+
+}
+func demonstrateMod() {
+
+}
+func runMath() {
+	// import "math"
+	demonstrateMaxMinForTypes()
+	demonstrateMaxMinBetweenValues()
+	demonstrateRounding()
+	demonstratePow()
 }
 
 // Errors
@@ -317,7 +383,7 @@ func runReadFromConsole() {
 	for {
 		scanner.Scan()
 		scannedText := scanner.Text()
-		if scannedText == "конец" {
+		if scannedText == "конец" || scannedText == "Конец" {
 			break
 		}
 		blogers = append(blogers, scannedText)
