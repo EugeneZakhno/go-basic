@@ -9,6 +9,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -25,12 +26,12 @@ type Author struct {
 }
 
 func runLessons() {
-	runLesson(runMath)
-	//runLesson(runRandom)
+	//runLesson(runMath)
+	runLesson(runRandom)
 	//runLesson(runSlicesSort)
 	//runLesson(runDefer)
 	//runLesson(runErrors)
-	runLesson(runReadWriteToFile)
+	//runLesson(runReadWriteToFile)
 	//runLesson(runReadFromConsole)
 }
 
@@ -173,7 +174,6 @@ func demonstrateRounding() {
 }
 
 func demonstratePow() { // работает с float64
-	// Pow
 	var powValue1 float64 = math.Pow(1.1, math.Pi) // 1.1 ³
 	fmt.Println("powValue1 =", powValue1)
 
@@ -268,6 +268,38 @@ func runRandom() {
 	var randFloat32 float32 = rand.Float32()
 	var randFloat64 float64 = rand.Float64()
 	fmt.Println(randFloat32, randFloat64)
+
+	// _ = rand.Intn(-1)
+	arrayInt8N := [30]int8{}
+	for i := 0; i < len(arrayInt8N); i++ {
+		// 128 + 127 255 -> [0:255] -> [0:256)
+		randInt8InDefaultInt := rand.Intn(256) - 128 // [-128:127]
+		arrayInt8N[i] = int8(randInt8InDefaultInt)
+	}
+	fmt.Println("array Int8N =", arrayInt8N)
+	fmt.Println()
+
+	arrayIntBetween10And100 := [30]int{}
+	for i := 0; i < len(arrayIntBetween10And100); i++ {
+		// [10:100] = [10:101) [0:91) + 10
+		randIntNBetweenAnd90 := rand.Intn(91)                  // [0:90]
+		arrayIntBetween10And100[1] = 10 + randIntNBetweenAnd90 // [0+10:90+10] [10:100]
+		fmt.Println("array IntBetween10And100", arrayIntBetween10And100)
+		fmt.Println()
+		arrayFloat64Between10And100 := [10]float32{}
+		for i := 0; i < len(arrayFloat64Between10And100); i++ {
+			randIntNBetweenAnd89 := rand.Intn(90) // [0:90) [0:89]
+			randFoat32 := rand.Float32()
+			// [0.0,1.0) [0.0,0.(9)]
+			arrayFloat64Between10And100[i] = float32(10+randIntNBetweenAnd89) + randFoat32 // [0+0.0: 89+0.(9)] [0.0: 89. (9)]
+		}
+		fmt.Println("array Float64Between10And100", arrayFloat64Between10And100)
+		fmt.Println()
+		// До Go 1.20 генератор заполнялся, как Seed(1), при запуске программы.
+		// Устарел: начиная с Go 1.20 нет причин вызывать Seed со случайным значением.
+		// Если Seed не вызывается, генератор заполняется случайным образом при запуске программы-
+		rand.Seed(time.Now().UnixNano())
+	}
 }
 
 // Errors
