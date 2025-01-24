@@ -24,14 +24,14 @@ const (
 )
 
 type Author struct {
-	name string
-	year int
+	Name        string
+	YearOfBirth int
 }
 
 func runLessons() {
 	//runLesson(runMath)
-	runLesson(runRandom)
-	//runLesson(runSlicesSort)
+	//runLesson(runRandom)
+	runLesson(runSlicesSort)
 	//runLesson(runDefer)
 	//runLesson(runErrors)
 	//runLesson(runReadWriteToFile)
@@ -311,10 +311,15 @@ func runSlicesSort() {
 
 	intSlice := []int{1, 7, 8, 23, 9, -8}
 	if !sort.IntsAreSorted(intSlice) { // утверждение = false     утверждение != true...
+		sort.Ints(intSlice)
+		fmt.Println("sorted intSlice", intSlice)
+
 	}
 
 	stringSlice := []string{"Bbb", "AAA", "A", "D", "Ccc", "Bb"}
 	if !sort.StringsAreSorted(stringSlice) {
+		sort.Strings(stringSlice)
+		fmt.Println("sorted stringSlice", stringSlice)
 	}
 
 	float64Slice := []float64{4.444, 5.555, 1.111, 6.666, 3.333, 2.222}
@@ -324,19 +329,48 @@ func runSlicesSort() {
 	}
 
 	floatSlice := []float64{0.1, 0.2, 0.3, 0.4, 0.5, 0.6}
-	rand.Shuffle(len(floatSlice), func(i, j int) { // i - индекс одного числа, ј - индекс другого числа
+	rand.Shuffle(len(floatSlice), func(i, j int) { // анонимная функция с аргументами i - индекс одного числа, ј - индекс другого числа
 		floatSlice[i], floatSlice[j] = floatSlice[i]+1, floatSlice[j]+1
 	})
 	fmt.Println("shuffled floatSlice", floatSlice)
 	authors := []Author{{"Стивен Кинг", 1947}, {"Джоан Роулинг", 1965}, {"Нил Гейман", 1960}, {"Макс Фрай", 1965}}
 	fmt.Println(authors)
 	// sort.Slice(authors, func(i, j int) bool {
-	// if authors[j].YearOfBirth != authors[i]. YearOfBirth {
+	// if authors[j].YearOfBirth != authors[i]. YearOfBirth {д
 	// return authors[j].YearOfBirth > authors[i].YearOfBirth
 	// } else if len(authors[j].Name) != len(authors[i].Name) {
 	// return len(authors[j].Name) > len(authors[i].Name)
 	// }
 
+	compareAnonFunc := func(i, j int) bool {
+		fmt.Printf("\nCравниваем %v (j=%d) и %v (i=%d)\n", authors[j], j, authors[i], i)
+
+		// У автора с индексом j больше год рождения, чем у автора с индексом і?
+		if authors[j].YearOfBirth > authors[i].YearOfBirth {
+			fmt.Printf(" Год рождения %5 (j-%d) больше чем у %s (1-%d). Меняем их местами (true).\n", authors[j].Name, j, authors[i].Name, i)
+			fmt.Println("-", authors)
+			return true
+		} else if authors[j].YearOfBirth < authors[i].YearOfBirth {
+			fmt.Printf(" - Год рождения %s (j-%d) меньше чем %s (1-%d). Оставляем их на местах (false).\n", authors[j].Name, j, authors[i].Name, i)
+			fmt.Println("-", authors)
+			return false
+		}
+
+		// У автора с индексом і длиннее имя, чем у автора с индексом і?
+		if len(authors[j].Name) > len(authors[i].Name) {
+			fmt.Printf(" Имя %s (1-%d) длиннее у %s (1=%d). Меняем их местами (true).\n", authors[j].Name, j, authors[i].Name, i)
+			fmt.Println("", authors)
+			return true
+		} else if len(authors[j].Name) < len(authors[i].Name) {
+			fmt.Printf(" Имя %s (j=%d) короче %s (1=%d). Оставляем их на местах (false).\n", authors[j].Name, j, authors[1].Name, i)
+			fmt.Println("-", authors)
+			return false
+		}
+		// У автора с индексом j "больше" имя, чем у автора с индексом і?
+		return authors[j].Name > authors[i].Name
+	}
+	sort.Slice(authors, compareAnonFunc)
+	fmt.Println(authors)
 }
 
 // Errors
