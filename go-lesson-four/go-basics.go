@@ -7,6 +7,7 @@ import (
 	"math"
 	"math/rand"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -23,6 +24,8 @@ const (
 )
 
 type Author struct {
+	name string
+	year int
 }
 
 func runLessons() {
@@ -300,6 +303,40 @@ func runRandom() {
 		// Если Seed не вызывается, генератор заполняется случайным образом при запуске программы-
 		rand.Seed(time.Now().UnixNano())
 	}
+}
+
+// Slices Sort
+func runSlicesSort() {
+	// import "sort"
+
+	intSlice := []int{1, 7, 8, 23, 9, -8}
+	if !sort.IntsAreSorted(intSlice) { // утверждение = false     утверждение != true...
+	}
+
+	stringSlice := []string{"Bbb", "AAA", "A", "D", "Ccc", "Bb"}
+	if !sort.StringsAreSorted(stringSlice) {
+	}
+
+	float64Slice := []float64{4.444, 5.555, 1.111, 6.666, 3.333, 2.222}
+	if !sort.Float64sAreSorted(float64Slice) {
+		sort.Float64s(float64Slice)
+		fmt.Println("sorted float64Slice", float64Slice)
+	}
+
+	floatSlice := []float64{0.1, 0.2, 0.3, 0.4, 0.5, 0.6}
+	rand.Shuffle(len(floatSlice), func(i, j int) { // i - индекс одного числа, ј - индекс другого числа
+		floatSlice[i], floatSlice[j] = floatSlice[i]+1, floatSlice[j]+1
+	})
+	fmt.Println("shuffled floatSlice", floatSlice)
+	authors := []Author{{"Стивен Кинг", 1947}, {"Джоан Роулинг", 1965}, {"Нил Гейман", 1960}, {"Макс Фрай", 1965}}
+	fmt.Println(authors)
+	// sort.Slice(authors, func(i, j int) bool {
+	// if authors[j].YearOfBirth != authors[i]. YearOfBirth {
+	// return authors[j].YearOfBirth > authors[i].YearOfBirth
+	// } else if len(authors[j].Name) != len(authors[i].Name) {
+	// return len(authors[j].Name) > len(authors[i].Name)
+	// }
+
 }
 
 // Errors
