@@ -369,11 +369,41 @@ func runSlicesSort() {
 		// У автора с индексом j "больше" имя, чем у автора с индексом і?
 		return authors[j].Name > authors[i].Name
 	}
+
 	sort.Slice(authors, compareAnonFunc)
 	fmt.Println(authors)
 }
 
-//Defer
+// Defer , кстати return выполнится после defer
+func demonstrateOneDeferCall() {
+	defer fmt.Println("Эта строка выведется под номером", 6, "после выполнения функции деmonstrate OneDeferCall()")
+	fmt.Println("Эта строка выведется под номером", 1)
+	for i := 2; i <= 4; i++ {
+		fmt.Println("Эта строка из цикла выведется под номером", i)
+	}
+	fmt.Println("Эта строка выведется под номером", 5)
+}
+
+func demonstrateFourDeferCalls() {
+	defer fmt.Println("Эта строка выведется под номером", 9, "после выполнения функции demonstrate FourDeferCalls()")
+	fmt.Println("Эта строка вызовется под номером", 1)
+	for i := 2; i < 5; i++ {
+		fmt.Println("Эта строка из цикла выведется под номером", 1)
+		if i == 3 {
+			defer fmt.Println("Эта строка выведется под номером", 8, "после выполнения функции demonstrate FourDeferCalls()")
+		} else if i == 4 {
+			defer fmt.Println("Эта строка выведется под номером", 7, "после выполнения функции demonstrate FourDeferCalls()")
+		}
+	}
+	fmt.Println("Эта строка выведется под номером", 5)
+	defer fmt.Println("Эта строка выведется под номером", 6, "после выполнения функции demonstrate FourDeferCalls()")
+}
+
+func runDefer() {
+	defer fmt.Println(string('\U0001F609'), "aspdof", string('\U0001F44F'))
+	demonstrateOneDeferCall()
+	demonstrateFourDeferCalls()
+}
 
 // Errors
 func demonstrateCheckedUncheckedErrors() {
