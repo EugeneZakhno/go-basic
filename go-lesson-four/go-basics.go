@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"math"
 	"math/rand"
@@ -31,9 +32,9 @@ type Author struct {
 func runLessons() {
 	//runLesson(runMath)
 	//runLesson(runRandom)
-	runLesson(runSlicesSort)
+	//runLesson(runSlicesSort)
 	//runLesson(runDefer)
-	//runLesson(runErrors)
+	runLesson(runErrors)
 	//runLesson(runReadWriteToFile)
 	//runLesson(runReadFromConsole)
 }
@@ -374,7 +375,7 @@ func runSlicesSort() {
 	fmt.Println(authors)
 }
 
-// Defer , кстати return выполнится после defer
+// Defer , кстати return выполнится после defer | А еще LIFO
 func demonstrateOneDeferCall() {
 	defer fmt.Println("Эта строка выведется под номером", 6, "после выполнения функции деmonstrate OneDeferCall()")
 	fmt.Println("Эта строка выведется под номером", 1)
@@ -445,12 +446,66 @@ func getPrice(itemInfo string) (float64, error) {
 	return 0, fmt.Errorf("Некорректная стоимость товара в строке [%s]", itemInfo)
 }
 
-//
-//func pretendReadingItemInfoFromKeyboard() [] string {
-//}
-//
-
 func inputNewItemInfo(itemsInfo *[]string) {
+}
+
+func pretendReadingItemInfoFromKeyboard() []string {
+	itemsInfo := []string{
+		"item: Kaktus, price: 4.30",
+		// Корректная строка
+		// Пустая строка
+		"item: Sombrero",
+		// Строка без цены
+		"item: Lime, price: 1.5.0",
+		// Строка с некорректной ценой
+	}
+	fmt.Println("Добавлена информация товарах:")
+	for _, itemInfo := range itemsInfo {
+		fmt.Printf("[%s]\n", itemInfo)
+	}
+	return itemsInfo
+}
+
+func demonstrateErrors() (totalPrice float64, itemsInfoError error) {
+	itemsInfo := pretendReadingItemInfoFromKeyboard()
+	for i := 0; ; i++ {
+		if i == len(itemsInfo) {
+			break
+		}
+		itemInfo := itemsInfo[i]
+
+		price, err := getPrice(itemInfo)
+		if err == nil {
+			totalPrice += price
+			fmt.Println(" + Общая сумма увеличилась на", price, "и теперь составляет", totalPrice)
+			continue
+		}
+		if itemsInfoError == nil {
+			// import Errors
+			itemsInfoError = errors.New("Сумма по прайсу не может быть рассчитана корректно, во вермя вводы было допущено не менее 1 ошибки.")
+		}
+
+		if emptyItemInfoError, ok := err.(*EmptyItemInfoError); ok {
+			fmt.Println(emptyItemInfoError, "Повторите попытку.")
+			inputNewItemInfo(&itemsInfo)
+		} else if noPriceInItemInfoError, ok := err.(*NoPriceInItemInfoError); ok {
+			fmt.Println(noPriceInItemInfoError)
+		} else {
+			fmt.Println("Другая ошибка:", err.Error())
+		}
+	}
+	return
+}
+
+func runErrors() {
+	demonstrateCheckedUncheckedErrors()
+	if totalPrice, err := demonstrateErrors(); err == nil {
+		fmt.Println("ОБЩАЯ СТОИМОСТЬ:", totalPrice)
+	} else {
+		fmt.Println(err)
+	}
+	//demonstratePanicAndRecover()
+	fmt.Println("Продолжение работы функции runErrors()")
 }
 
 // Read & Write To File
