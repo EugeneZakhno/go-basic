@@ -30,19 +30,20 @@ type Author struct {
 }
 
 func runLessons() {
-	//runLesson(runMath)
-	//runLesson(runRandom)
-	//runLesson(runSlicesSort)
-	//runLesson(runDefer)
+	runLesson(runMath)
+	runLesson(runRandom)
+	runLesson(runSlicesSort)
+	runLesson(runDefer)
 	runLesson(runErrors)
-	//runLesson(runReadWriteToFile)
-	//runLesson(runReadFromConsole)
+	runLesson(runReadWriteToFile)
+	runLesson(runReadFromConsole)
 }
 
 func runLesson(m func()) {
 	m() // Вызов функции m
 }
 
+// ******************************************************************************************************************************************************************************
 // Math
 func demonstrateMaxMinForTypes() {
 	var maxInt8Value int8 = math.MaxInt8
@@ -243,6 +244,7 @@ func runMath() {
 	demonstrateMod()
 }
 
+// ******************************************************************************************************************************************************************************
 // Random
 func runRandom() {
 	// import math/rand
@@ -306,6 +308,7 @@ func runRandom() {
 	}
 }
 
+// ******************************************************************************************************************************************************************************
 // Slices Sort
 func runSlicesSort() {
 	// import "sort"
@@ -375,6 +378,7 @@ func runSlicesSort() {
 	fmt.Println(authors)
 }
 
+// ******************************************************************************************************************************************************************************
 // Defer , кстати return выполнится после defer | А еще LIFO
 func demonstrateOneDeferCall() {
 	defer fmt.Println("Эта строка выведется под номером", 6, "после выполнения функции деmonstrate OneDeferCall()")
@@ -406,6 +410,7 @@ func runDefer() {
 	demonstrateFourDeferCalls()
 }
 
+// ******************************************************************************************************************************************************************************
 // Errors
 func demonstrateCheckedUncheckedErrors() {
 
@@ -496,6 +501,7 @@ func demonstrateErrors() (totalPrice float64, itemsInfoError error) {
 	}
 	return
 }
+
 func demonstratePanic() {
 	intArray := [2]int{100, 500}
 	outOfRangeIndex := len(intArray)
@@ -511,7 +517,6 @@ func demonstratePanicAndRecover() {
 			fmt.Println("Отставить панику!")
 		}
 	}()
-
 	demonstratePanic()
 	fmt.Println("Недостижимое продолжение работы функции demonstrate PanicAnd Recover()")
 }
@@ -529,6 +534,7 @@ func runErrors() {
 	fmt.Println("Продолжение работы функции runErrors()")
 }
 
+// **********************************************************************************************************************************************************************
 // Read & Write To File
 func writeTextToFile(fileName, str string) {
 	/*
@@ -646,6 +652,7 @@ func readTextFromFile(fileName string) string {
 	return string(str)
 }
 
+// ******************************************************************************************************************************************************************************
 // Read From Console
 func runReadFromConsole() {
 
@@ -718,6 +725,12 @@ func runReadFromConsole() {
 		fmt.Println(index, bloger)
 	}
 	pause()
+
+}
+
+//Main
+
+func cleanScreen() {
 
 }
 
