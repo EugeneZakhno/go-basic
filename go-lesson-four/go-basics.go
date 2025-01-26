@@ -373,6 +373,8 @@ func runSlicesSort() {
 	fmt.Println(authors)
 }
 
+//Defer
+
 // Errors
 func demonstrateCheckedUncheckedErrors() {
 
