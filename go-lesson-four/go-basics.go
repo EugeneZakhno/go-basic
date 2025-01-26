@@ -496,15 +496,36 @@ func demonstrateErrors() (totalPrice float64, itemsInfoError error) {
 	}
 	return
 }
+func demonstratePanic() {
+	intArray := [2]int{100, 500}
+	outOfRangeIndex := len(intArray)
+	fmt.Println("Получаю значение по инексу, выходящему за границу массива...")
+	fmt.Println(intArray[outOfRangeIndex])
+	fmt.Println("Недостижимое продолжение работы функции demonstratePanic()")
+}
+
+func demonstratePanicAndRecover() {
+	defer func() {
+		if arg := recover(); arg != nil {
+			fmt.Println("ПАНИКА:", arg)
+			fmt.Println("Отставить панику!")
+		}
+	}()
+
+	demonstratePanic()
+	fmt.Println("Недостижимое продолжение работы функции demonstrate PanicAnd Recover()")
+}
 
 func runErrors() {
+
 	demonstrateCheckedUncheckedErrors()
+
 	if totalPrice, err := demonstrateErrors(); err == nil {
 		fmt.Println("ОБЩАЯ СТОИМОСТЬ:", totalPrice)
 	} else {
 		fmt.Println(err)
 	}
-	//demonstratePanicAndRecover()
+	demonstratePanicAndRecover()
 	fmt.Println("Продолжение работы функции runErrors()")
 }
 
