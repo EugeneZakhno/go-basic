@@ -10,25 +10,39 @@ import (
 	"time"
 )
 
+var locations = []string{}
+
+type Song struct {
+}
+
+func runLessons() {
+	runLesson(runTime, "Управление временем и простра... продолжительностью")
+	runLesson(runInterfaces, "Интерфейсы: впихнуть невпихуемое")
+	runLesson(runTypeAssertion, "Приведение типов: а ты точно олень?")
+	runLesson(runLog, "Логирование: +10 к уважению на собеседовании")
+	//runLesson(runTesting, "Unit тесты с самой популярной библиотекой на GitHub")
+	//runLesson(runGoroutines, "Горутины: приятнейшая реализация многопоточности")
+	//runLesson(runChannels, "Каналы: куда чего послать?")
+}
+func runLesson(m func(), str string) {
+	m() // Вызов функции m
+}
+
 func main() {
 	fmt.Println("Lesson_05")
-	runTime()
-	runInterfaces()
+	runLessons()
 }
 
 func runTime() {
 	// import "time"
-	//	demonstrateBasicDateCreation()
-	//	demonstrateTimeDateCreation()
-	//	demonstrateTimeUnixCreation()
-	//	demonstrateFormatToString()
-	//	demonstrateParse()
-	//	demonstrateComparison()
-	//	demonstrateDuration()
-	//	demonstrateTimeDifference()
-
-	runLog()
-
+	demonstrateBasicDateCreation()
+	demonstrateTimeDateCreation()
+	demonstrateTimeUnixCreation()
+	demonstrateFormatToString()
+	demonstrateParse()
+	demonstrateComparison()
+	demonstrateDuration()
+	demonstrateTimeDifference()
 }
 
 // Утверждение типов (ниже)
