@@ -20,12 +20,19 @@ func TestGetId_ProvidedId(t *testing.T) {
 }
 
 func TestGetUrl_ProvidedUrl(t *testing.T) {
-
+	expected := "testUrl"
+	video := &Video{Url: expected}
+	actual := video.GetUrl()
+	// assert.Samef(t, expected, actual, "Expected memory address: [%p), actual memory address: [%p]", &expected, &actual)
+	assert.Equal(t, expected, actual)
+	assert.True(t, expected == actual)
 }
 
 func TestGetUrl_DefaultUrl(t *testing.T) {
-
+	video := &Video{}
+	assert.Empty(t, video.GetUrl(), "Default value for Video should be empty")
 }
+
 func TestSetUrl_ValidUrl(t *testing.T) {
 
 }
