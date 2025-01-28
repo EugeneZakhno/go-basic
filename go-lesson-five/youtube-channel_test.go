@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "errors"
+	"fmt"
 	_ "fmt"
 	"github.com/stretchr/testify/assert" // Самая популярная библиотека для тестирования
 	"testing"
@@ -34,13 +35,28 @@ func TestGetUrl_DefaultUrl(t *testing.T) {
 }
 
 func TestSetUrl_ValidUrl(t *testing.T) {
-
+	expectedUrl := VIDEO_PREFIX + "testUrl"
+	video := &Video{}
+	urlFromFunc, err := video.SetUrl(expectedUrl)
+	assert.NoError(t, err)
+	assert.Equal(t, expectedUrl, video.Url, "video.url doesn't match expected")
+	assert.Equalf(t, expectedUrl, urlFromFunc, "Url [%s] from SetUrl() doesn't match expected [%s]", urlFromFunc, expectedUrl)
 }
 
 func TestSetUrl_InvalidUrl(t *testing.T) {
-
+	url := "testUrl"
+	video := &Video{}
+	expectedErrorMsg := fmt.Sprintf("Url [%s] is not valid. Must start with [%s].", url, VIDEO_PREFIX)
+	actualUrlFromFunc, err := video.SetUrl(url)
+	assert.Error(t, err)
+	assert.EqualError(t, err, expectedErrorMsg)
+	assert.Empty(t, actualUrlFromFunc)
 }
 
 func TestGetUrl_EmptyUrl(t *testing.T) {
-
+	video := &Video{}
+	urlFromFunc, err := video.SetUrl("")
+	assert.NotNil(t, err)
+	assert.Error(t, err)
+	assert.Empty(t, urlFromFunc)
 }
