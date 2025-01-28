@@ -4,9 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"os/user"
 	"strconv"
+	"sync"
 	"time"
 )
 
@@ -20,7 +22,7 @@ func runLessons() {
 	runLesson(runInterfaces, "Интерфейсы: впихнуть невпихуемое")
 	runLesson(runTypeAssertion, "Приведение типов: а ты точно олень?")
 	runLesson(runLog, "Логирование: +10 к уважению на собеседовании")
-	//runLesson(runTesting, "Unit тесты с самой популярной библиотекой на GitHub")
+	runLesson(runTesting, "Unit тесты с самой популярной библиотекой на GitHub")
 	//runLesson(runGoroutines, "Горутины: приятнейшая реализация многопоточности")
 	//runLesson(runChannels, "Каналы: куда чего послать?")
 }
@@ -373,4 +375,140 @@ func runLog() {
 	log.SetFlags(log.LstdFlags | log.Lmsgprefix)
 	log.SetPrefix("msg: ")
 	log.Println("Log with prefix after time")
+}
+
+func runTesting() {
+	//testing in other file youtube-channel.go and youtube-channel_test.go
+}
+
+type Resume struct {
+	Language          string
+	Company           string
+	YearsOfExperience int8
+	YearsOfEducation  int8
+}
+type Vacancy struct {
+	Resume
+}
+func think() {
+time.Sleep(time.Second * time.Duration(rand.Intn(3)))
+}
+
+func applyForVacanciesFn (resume *Resume, vacancies[Vacancy, applyFunc func(resume Resume, vacancies []Vacancy) (invitedToInterview []Vacancy))
+var invitedToInterview []Vacancy
+timeStart := time.Now()
+invited To Interview applyFunc(resume, vacancies)
+fmt.Printf("ВАС ПРИГЛАСИЛИ НА СОБЕСЕДОВАНИЕ % КОМПАНИЙ ПО ВАКАНСИЯМ: \n", len(invitedToInterview))
+for index, vacancy range invitedToInterview {
+fmt.Printf("%d) %+v \n", index+1, vacancy)
+fmt.Println(strings. Repeat("\n", 2))
+fmt.Println("ПРОДОЛЖИТЕЛЬНОСТЬ В 1 ПОТОКЕ:", time. Now().Sub(timeStart))
+fmt.Println(strings. Repeat("\n", 3))
+}
+
+func runGoroutines() {
+	goroutinesIntro()
+	resume := &Resume{
+		Language:          "Golang",
+		YearsOfExperience: 2,
+		YearsOfEducation:  5,
+	}
+
+	vacancies := []Vacancy{
+		{Language: "Golang", Company: "Google", YearsOfExperience: 5, YearsOfEducation: 5},
+		{Language: "Java", Company: "New Yorker", YearsOfExperience: 2, YearsOfEducation: 4},
+		{Language: "Golang", Company: "Microsoft", YearsOfExperience: 0, YearsOfEducation: 5},
+		{Language: "C#", Company: "Microsoft", YearsOfExperience: 2, YearsOfEducation: 4},
+		{Language: "Golang", Company: "Tesla", YearsOfExperience: 1, YearsOfEducation: 4},
+		{Language: "Java", Company: "Google", YearsOfExperience: 5, YearsOfEducation: 0},
+		{Language: "Golang", Company: "Sun Microsystems", YearsOfExperience: 2, YearsOfEducation: 4},
+		{Language: "Golang", Company: "Booking", YearsOfExperience: 2, YearsOfEducation: 5},
+		{Language: "Golang", Company: "Bon Aqua", YearsOfExperience: 0, YearsOfEducation: 5},
+		{Language: "Java", Company: "Tesla", YearsOfExperience: 1, YearsOfEducation: 4},
+		{Language: "C#", Company: "Tesla", YearsOfExperience: 5, YearsOfEducation: 0},
+		{Language: "Golang", Company: "Ugly Coyote", YearsOfExperience: 3, YearsOfEducation: 0},
+		{Language: "Golang", Company: "Nike", YearsOfExperience: 3, YearsOfEducation: 4},
+		{Language: "C#", Company: "Google", YearsOfExperience: 0, YearsOfEducation: 5},
+		{Language: "Golang", Company: "Adidas", YearsOfExperience: 1, YearsOfEducation: 4},
+		{Language: "Golang", Company: "Puma", YearsOfExperience: 1, YearsOfEducation: 5},
+		{Language: "Java", Company: "Microsoft", YearsOfExperience: 0, YearsOfEducation: 5},
+		{Language: "Golang", Company: "Terranova", YearsOfExperience: 2, YearsOfEducation: 4},
+		{Language: "Golang", Company: "New Yorker", YearsOfExperience: 0, YearsOfEducation: 4},
+	}
+
+	applyForVacanciesFn(resume, vacancies, applyForVacanciesIn1Thread)
+	applyForVacanciesFn(resume, vacancies, applyForVacanciesInMultithread)
+	applyForVacanciesFn(resume, vacancies, applyForVacanciesInMultithreadWithDoubling)
+
+}
+
+// Многопоточность: Горутины
+func goroutinesIntro() {
+
+	var total int
+	for i := 1; i <= 100; i++ {
+		ind, tot := i, total
+		total += i
+		fmt.Printf("%d%d%d", ind, tot, total)
+	}
+	fmt.Println("\nTOTAL =", total)
+	fmt.Println("Step here")
+	fmt.Println()
+
+	total = 0
+	for i := 1; i <= 100; i++ {
+		go func(index int) {
+			ind, tot := index, total
+			total += index
+			fmt.Printf("%d%d%d", ind, tot, total)
+		}(1)
+	}
+	fmt.Println("\nTOTAL =", total)
+	fmt.Println("Add breakpoint here!")
+	fmt.Println("Step here")
+	fmt.Println("Step here")
+	fmt.Println("TOTAL =", total)
+	fmt.Println("Step here")
+	fmt.Println()
+
+	// import "sync"
+	var wg sync.WaitGroup
+	total, maxInt := 0, 100
+	// wg.Add(maxInt)
+	for i := 1; i <= maxInt; i++ {
+		wg.Add(1)
+		go func(index int) {
+			ind, tot := index, total
+			total += index
+			fmt.Printf("%d%d%d", ind, tot, total)
+			wg.Done()
+		}(i)
+	}
+
+	wg.Wait()
+	fmt.Println("\nTOTAL =", total)
+	fmt.Println("Add breakpoint here!")
+	fmt.Println("Step here")
+	fmt.Println("Step here")
+	fmt.Println("TOTAL", total)
+	fmt.Println("Step here")
+	fmt.Println()
+}
+func applyForVacanciesIn1Thread(resume *Resume, vacancies []Vacancy) (invitedToInterview []Vacancy) {
+}
+
+// Многопоточность: Каналы
+func printChannelInfo(strChannel chan string, msg string) {
+}
+func readWriteFromChannel(strChannel chan string) {
+}
+func demonstrateChannels() {
+}
+func demonstrate1WayChannels() {
+}
+func runChannels() {
+}
+
+// Main
+func cleanScreen() {
 }
