@@ -19,16 +19,13 @@ type Song struct {
 }
 
 func runLessons() {
-	runLesson(runTime, "Управление временем и простра... продолжительностью")
-	runLesson(runInterfaces, "Интерфейсы: впихнуть невпихуемое")
-	runLesson(runTypeAssertion, "Приведение типов: а ты точно олень?")
-	runLesson(runLog, "Логирование: +10 к уважению на собеседовании")
-	runLesson(runTesting, "Unit тесты с самой популярной библиотекой на GitHub")
-	//runLesson(runGoroutines, "Горутины: приятнейшая реализация многопоточности")
+	//runLesson(runTime, "Управление временем и простра... продолжительностью")
+	//runLesson(runInterfaces, "Интерфейсы: впихнуть невпихуемое")
+	//runLesson(runTypeAssertion, "Приведение типов: а ты точно олень?")
+	//runLesson(runLog, "Логирование: +10 к уважению на собеседовании")
+	//runLesson(runTesting, "Unit тесты с самой популярной библиотекой на GitHub")
+	runLesson(runGoroutines, "Горутины: приятнейшая реализация многопоточности")
 	//runLesson(runChannels, "Каналы: куда чего послать?")
-}
-func runLesson(m func(), str string) {
-	m() // Вызов функции m
 }
 
 func main() {
@@ -528,6 +525,7 @@ func goroutinesIntro() {
 	fmt.Println()
 }
 
+// Однопоточный поиск
 func applyForVacanciesIn1Thread(resume *Resume, vacancies []Vacancy) (invitedToInterview []Vacancy) {
 	for index, vacancy := range vacancies {
 		interviewInvitationReceived := vacancy.Apply(resume)
@@ -541,6 +539,7 @@ func applyForVacanciesIn1Thread(resume *Resume, vacancies []Vacancy) (invitedToI
 	return
 }
 
+// Как надо делать! Поиск вакансии составил 7 секунд в многопоточной (в однопоточной 56 сек.)
 func applyForVacanciesInMultithread(resume *Resume, vacancies []Vacancy) (invitedToInterview []Vacancy) {
 	var wg sync.WaitGroup
 	wg.Add(len(vacancies))
@@ -564,6 +563,7 @@ func applyForVacanciesInMultithread(resume *Resume, vacancies []Vacancy) (invite
 	return
 }
 
+// О том как не надо делать. Пролетел мимо. Никто не позвал на совбез, т.к. указал pointer в коде и никому не откликнулся получается
 func applyForVacanciesInMultithreadWithDoubling(resume *Resume, vacancies []Vacancy) (invitedToInterview []Vacancy) {
 	var wg sync.WaitGroup
 	wg.Add(len(vacancies))
@@ -577,7 +577,7 @@ func applyForVacanciesInMultithreadWithDoubling(resume *Resume, vacancies []Vaca
 				fmt.Printf(" <<< Компания \"%s\" не готова позвать Вас на собеседование на позицию \" % s\".\n", vacancy.Company, vacancy.Language)
 			}
 			wg.Done()
-		}(&vacancy)
+		}(&vacancy) // Не нужно так делать!  Не следует передавать pointers в многопоточной среде
 	}
 	wg.Wait()
 	return
@@ -585,16 +585,79 @@ func applyForVacanciesInMultithreadWithDoubling(resume *Resume, vacancies []Vaca
 
 // Многопоточность: Каналы
 func printChannelInfo(strChannel chan string, msg string) {
+	log.Printf("~~~ %s. Количество слов в каналеЖ %d\n", msg, len(strChannel))
 }
 func readWriteFromChannel(strChannel chan string) {
+	words := []string{"Подписка", "Лайк", "Комментарий"}
+	fmt.Println("words:", words)
+
+	printChannelInfo(strChannel, fmt.Sprintf("Канал с размером буфера % создан", cap(strChannel)))
+	time.Sleep(time.Second * 3)
+
+	// Записываем все значения из среза слов в пустой канал
+	for index := range words {
+		go func(channel chan string, wordIndex int) {
+			word := words[wordIndex]
+			channel <- word
+			printChannelInfo(channel, fmt.Sprintf(">>> В канал записано слово \"%s\"", word))
+		}(strChannel, index)
+	}
+	time.Sleep(time.Second * 5)
+
+	printChannelInfo(strChannel, "После записи, перед чтением")
+	time.Sleep(time.Second * 2)
+
+	// Просим записать ещё одно значение в заполненный канал
+	go func(channel chan string, word string) {
+		log.Println("Пауза в новой горутине из-за попытки записать ещё одно значение в заполненный канал...")
+		channel <- word
+		printChannelInfo(strChannel, "Новая горутина запустилась, удалось записать ещё одно значение в освободившуюся ячейку")
+	}(strChannel, "Спасибо")
+	time.Sleep(time.Second * 10)
+
+	// Читаем все значения из заполненного канала
+	for i := 0; i < len(words)+1; i++ {
+		go func(channel chan string) {
+			printChannelInfo(channel, fmt.Sprint("<<< Слово из канала: ", <-channel))
+			time.Sleep(time.Second * 1)
+		}(strChannel)
+	}
+	time.Sleep(time.Second * 10)
+
+	printChannelInfo(strChannel, "После чтения всех слов")
+	time.Sleep(time.Second * 3)
+
+	fmt.Println("Stop here")
 }
+
 func demonstrateChannels() {
+	var strChannelWith3Cells chan string = make(chan string, 3) // 3 - это размер буфера
+	readWriteFromChannel(strChannelWith3Cells)
+
+	var strChannelWithoutCells chan string = make(chan string)
+	readWriteFromChannel(strChannelWithoutCells)
 }
+
 func demonstrate1WayChannels() {
 }
+
 func runChannels() {
+	log.SetFlags(log.Ltime)
+	demonstrateChannels()
+	demonstrate1WayChannels()
 }
 
 // Main
 func cleanScreen() {
+}
+
+func pause() {
+}
+
+func conc(strs ...string) (resultStr string) {
+	return
+}
+
+func runLesson(fn func(), header string) {
+	fn() // Вызов функции m
 }
