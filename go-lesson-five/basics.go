@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/user"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 )
@@ -383,31 +384,34 @@ func runTesting() {
 
 type Resume struct {
 	Language          string
-	Company           string
 	YearsOfExperience int8
 	YearsOfEducation  int8
 }
 type Vacancy struct {
-	Resume
+	Language          string
+	Company           string
+	YearsOfExperience int8
+	YearsOfEducation  int8
 }
+
 func think() {
-time.Sleep(time.Second * time.Duration(rand.Intn(3)))
+	time.Sleep(time.Second * time.Duration(rand.Intn(3)))
 }
 
-func (v Vacancy) Apply (resume Resume) (interviewInvitationSent bool) {
-	fmt.Printf("%sѕ рассматрирает Ваше резюме на позицию %s\n", v.Company, v. Language)
+func (v Vacancy) Apply(resume *Resume) (interviewInvitationSent bool) {
+	fmt.Printf("%sѕ рассматрирает Ваше резюме на позицию %s\n", v.Company, v.Language)
 	think()
-	if resume.Language != v. Language{
-		fmt.Printf("%5 отклоняет Ваше резюме: вакансия \"%s\" не соответствует \"%s\", которую ищете Вы. \n", v. Company, v.Language, resume.Language)
-	return
-}
-think()
+	if resume.Language != v.Language {
+		fmt.Printf("%5 отклоняет Ваше резюме: вакансия \"%s\" не соответствует \"%s\", которую ищете Вы. \n", v.Company, v.Language, resume.Language)
+		return
+	}
+	think()
 
-if resume.YearsOfExperience < v.YearsOfExperience {
-	fmt.Printf("%s отклоняет Ваше резюме: требуется %0 лет опыта, и Bac %d\n", v.Company, v.YearsOfExperience, resume.YearsOfExperience)
-	return
-}
-fmt.Printf("%s убедилась, что у Вас достаточно коммерческого опыта. \n", v. Company)
+	if resume.YearsOfExperience < v.YearsOfExperience {
+		fmt.Printf("%s отклоняет Ваше резюме: требуется %0 лет опыта, и Bac %d\n", v.Company, v.YearsOfExperience, resume.YearsOfExperience)
+		return
+	}
+	fmt.Printf("%s убедилась, что у Вас достаточно коммерческого опыта. \n", v.Company)
 
 	think()
 
@@ -415,25 +419,25 @@ fmt.Printf("%s убедилась, что у Вас достаточно ком�
 		fmt.Printf("%S отклоняет Ваше резюме: требуется 20 лет образования, у Вас %d.\n", v.Company, v.YearsOfEducation, resume.YearsOfEducation)
 		return
 	}
-		fmt.Printf("%s убедилась, что у Вас достаточный уровень образования.\n", v. Company)
-		think()
-		return true
+	fmt.Printf("%s убедилась, что у Вас достаточный уровень образования.\n", v.Company)
+	think()
+	return true
 
 }
 
-func applyForVacanciesFn (resume *Resume, vacancies[]Vacancy, applyFunc func(resume Resume, vacancies []Vacancy) (invitedToInterview []Vacancy))
-var invitedToInterview []Vacancy
-timeStart := time.Now()
-invited To Interview applyFunc(resume, vacancies)
-fmt.Printf("ВАС ПРИГЛАСИЛИ НА СОБЕСЕДОВАНИЕ % КОМПАНИЙ ПО ВАКАНСИЯМ: \n", len(invitedToInterview))
-for index, vacancy range invitedToInterview {
-fmt.Printf("%d) %+v \n", index+1, vacancy)
-fmt.Println(strings. Repeat("\n", 2))
-fmt.Println("ПРОДОЛЖИТЕЛЬНОСТЬ В 1 ПОТОКЕ:", time. Now().Sub(timeStart))
-fmt.Println(strings. Repeat("\n", 3))
+func applyForVacanciesFn(resume *Resume, vacancies []Vacancy, applyFunc func(resume *Resume, vacancies []Vacancy) (invitedToInterview []Vacancy)) {
+
+	var invitedToInterview []Vacancy
+	timeStart := time.Now()
+	invitedToInterview = applyFunc(resume, vacancies)
+	fmt.Printf("ВАС ПРИГЛАСИЛИ НА СОБЕСЕДОВАНИЕ % КОМПАНИЙ ПО ВАКАНСИЯМ: \n", len(invitedToInterview))
+	for index, vacancy := range invitedToInterview {
+		fmt.Printf("%d) %+v \n", index+1, vacancy)
+	}
+	fmt.Println(strings.Repeat("\n", 2))
+	fmt.Println("ПРОДОЛЖИТЕЛЬНОСТЬ В 1 ПОТОКЕ:", time.Now().Sub(timeStart))
+	fmt.Println(strings.Repeat("\n", 3))
 }
-
-
 
 func runGoroutines() {
 	goroutinesIntro()
@@ -526,7 +530,7 @@ func goroutinesIntro() {
 
 func applyForVacanciesIn1Thread(resume *Resume, vacancies []Vacancy) (invitedToInterview []Vacancy) {
 	for index, vacancy := range vacancies {
-		interviewInvitationReceived := Vacancy.Apply(resume)
+		interviewInvitationReceived := vacancy.Apply(resume)
 		if interviewInvitationReceived {
 			fmt.Printf(" >>> %d: Компания \"%s\" позвала Вас на собеседование на позицию \"%s\",\n", index+1, vacancy.Company, vacancy.Language)
 			invitedToInterview = append(invitedToInterview, vacancy)
@@ -534,6 +538,48 @@ func applyForVacanciesIn1Thread(resume *Resume, vacancies []Vacancy) (invitedToI
 			fmt.Printf(" <<<%d: Компания \"%s\" не готова позвать Вас на собеседование на позицию \"%s\".\n", index+1, vacancy.Company, vacancy.Language)
 		}
 	}
+	return
+}
+
+func applyForVacanciesInMultithread(resume *Resume, vacancies []Vacancy) (invitedToInterview []Vacancy) {
+	var wg sync.WaitGroup
+	wg.Add(len(vacancies))
+
+	for index := range vacancies {
+		// go interviewInvitationReceived:vacancy Apply(resume)
+		go func(index int) {
+			vacancy := vacancies[index]
+			interviewInvitationReceived := vacancy.Apply(resume)
+
+			if interviewInvitationReceived {
+				fmt.Printf(" >>> %d: Компания \"%s\" позвала Вас на собеседование на позицию \"%s\",\n", index+1, vacancy.Company, vacancy.Language)
+				invitedToInterview = append(invitedToInterview, vacancy)
+			} else {
+				fmt.Printf(" <<< %d: Компания \"%s\" не готова позвать Вас на собеседование на позицию \"%s\",\n", index+1, vacancy.Company, vacancy.Language)
+			}
+			wg.Done()
+		}(index)
+	}
+	wg.Wait()
+	return
+}
+
+func applyForVacanciesInMultithreadWithDoubling(resume *Resume, vacancies []Vacancy) (invitedToInterview []Vacancy) {
+	var wg sync.WaitGroup
+	wg.Add(len(vacancies))
+	for _, vacancy := range vacancies {
+		go func(vacancy *Vacancy) {
+			interviewInvitationReceived := vacancy.Apply(resume)
+			if interviewInvitationReceived {
+				fmt.Printf(" >>> Компания \" % s\" позвала Вас на собеседование на позицию \"%s\". \n", vacancy.Company, vacancy.Language)
+				invitedToInterview = append(invitedToInterview, *vacancy)
+			} else {
+				fmt.Printf(" <<< Компания \"%s\" не готова позвать Вас на собеседование на позицию \" % s\".\n", vacancy.Company, vacancy.Language)
+			}
+			wg.Done()
+		}(&vacancy)
+	}
+	wg.Wait()
 	return
 }
 
