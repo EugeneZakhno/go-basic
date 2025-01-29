@@ -631,14 +631,52 @@ func readWriteFromChannel(strChannel chan string) {
 }
 
 func demonstrateChannels() {
-	var strChannelWith3Cells chan string = make(chan string, 3) // 3 - это размер буфера
+	var strChannelWith3Cells chan string = make(chan string, 3) // канал с буфером, 3 - это размер буфера
 	readWriteFromChannel(strChannelWith3Cells)
 
-	var strChannelWithoutCells chan string = make(chan string)
+	fmt.Println("***********************************************")
+	var strChannelWithoutCells chan string = make(chan string) // канал без буфера
 	readWriteFromChannel(strChannelWithoutCells)
 }
 
 func demonstrate1WayChannels() {
+	//var producer1WayChannel <-chan *Resume = make(<-chan *Resume, 1)
+	//var consumer1WayChannel chan <- *Resume = make(chan<- *Resume, 1)
+	//for i:= 0; i < 3; i++ {
+	//newResume := &Resume {Language: "Golang", YearsOfExperience: int8 (rand. Intn (10)), YearsOfEducation: int8(rand.Intn(10))}
+	//producer1WayChannel <- newResume
+	//
+	//go func(producer <-chan *Resume, consumer chan <- *Resume) {
+	//	resume := <-producer
+	//	fmt.Println(resume)
+	//	consumer <- resume
+	//}(producer1WayChannel, consumer1WayChannel)
+	//	fmt.Println("Резюме:", <- consumer1WayChannel) // Зачем-то же значение было записано в канал...
+	//}
+
+	var channel1 chan *Resume = make(chan *Resume, 100) // создаем канал1
+	var channel2 chan *Resume = make(chan *Resume, 100) //
+	for i := 0; i < 3+rand.Intn(20); i++ {
+		newResume := &Resume{Language: "Golang", YearsOfExperience: int8(rand.Intn(10)), YearsOfEducation: int8(rand.Intn(10))}
+		channel1 <- newResume
+
+		go func(producer <-chan *Resume, consumer chan<- *Resume) {
+			resume := <-producer
+			fmt.Printf("%+v \n", resume)
+			consumer <- resume
+			//producer < &Resume() // invalid operation: cannot send to receive-only channel producer (variable of type <-chan *Resume)
+			// res:= <-consumer // invalid operation: cannot receive from send-only channel consumer (variable of type chan< *Resume)
+		}(channel1, channel2)
+		time.Sleep(time.Second * 5)
+		close(channel2)
+
+		fmt.Println("Резюме:")
+		for resume := range channel2 {
+			fmt.Println(resume)
+		}
+		// channel2 <- &Resume{Language: "Ошибка-а-а-а-а"} // sendon close channel
+		fmt.Println("End")
+	}
 }
 
 func runChannels() {
