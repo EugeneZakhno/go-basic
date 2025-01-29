@@ -7,19 +7,17 @@ import (
 
 func main() {
 	fmt.Println("Lesson_3:")
-	//	runLessons()
-	//	runMap()
-	runStructe()
+	runLessons()
 }
 func runLesson(m func()) {
-
+	m()
 }
 
 func runLessons() {
 	runLesson(runPointer)
 	runLesson(runMap)
-	//runLesson(runStructure)
-	//		runLesson(runPublicPrivate)
+	runLesson(runStructe)
+	runLesson(runPublicPrivate)
 }
 
 // Pointers
