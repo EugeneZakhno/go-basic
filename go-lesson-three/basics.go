@@ -9,8 +9,8 @@ func main() {
 	fmt.Println("Lesson_3:")
 	runLessons()
 }
-func runLesson(m func()) {
-	m()
+func runLesson(fn func()) {
+	fn()
 }
 
 func runLessons() {

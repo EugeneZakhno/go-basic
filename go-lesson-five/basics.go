@@ -697,5 +697,5 @@ func conc(strs ...string) (resultStr string) {
 }
 
 func runLesson(fn func(), header string) {
-	fn() // Вызов функции m
+	fn() // Вызов функции
 }
