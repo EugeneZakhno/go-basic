@@ -121,7 +121,7 @@ func runArrays() {
 	fmt.Println(arr3)
 	var arr1 = [5]int{1, 2, 3, 4, 5} // Массив из 5 элементов
 	fmt.Println(arr1)
-	var stringArrawy = [3]string{"Genny", "26", `Не фига не делает!`}
+	var stringArrawy = [3]string{"Eugene", "38", `Ни фига не делает!`}
 	fmt.Println(stringArrays)
 	fmt.Println(stringArrawy)
 }
