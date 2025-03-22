@@ -115,7 +115,7 @@ func runArrays() {
 	var stringArray [3]string // by default ["","",""]
 	fmt.Println(stringArray)
 
-	var stringArrays = [5]string{"Dsr", "Ger", "dbg", "1244"}
+	var stringArrays = [5]string{"Dsr", "Ger", "dbe", "1244"}
 
 	var arr3 = [3]string{"apple", "banana", "cherry"} // Массив из 3 строк
 	fmt.Println(arr3)
