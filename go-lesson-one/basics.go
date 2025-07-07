@@ -29,7 +29,7 @@ complex128   128     16
 */
 
 // Global var
-var banan string = "Mango"
+var banana string = "Mango"
 var favoriteNum int = 100
 
 var int64Value = 100
