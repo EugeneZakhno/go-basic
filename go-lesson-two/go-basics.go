@@ -7,25 +7,25 @@ func main() {
 	runLessons()
 }
 
-//func runLesson(fn func()) {
-//	fn()
-//}
+func runLesson(fn func()) {
+	fn()
+}
 
 func runLessons() {
 	runLesson(runRunes)
 	runLesson(runConstants)
 	runLesson(runComments)
-	runLesson(runMultipleVars)
-	runLesson(runArrays)
-	runLesson(runSlices)
-	runLesson(runSkipVar)
-	runLesson(runIfElseSwitch)
-	runLesson(Loops)
+	//runLesson(runMultipleVars)
+	//runLesson(runArrays)
+	//runLesson(runSlices)
+	//runLesson(runSkipVar)
+	//runLesson(runIfElseSwitch)
+	//	runLesson(Loops)
 }
 
 // Runes
 func printRuneVariables(variableName string, variableValue rune) {
-
+	fmt.Printf("%s as an int: [%d], as a string: [%s] \n", variableName, variableValue, string(variableValue))
 }
 
 // Constants
