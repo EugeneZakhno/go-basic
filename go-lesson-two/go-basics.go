@@ -7,6 +7,12 @@ func main() {
 	runLessons()
 }
 
+const NUMBER_OF_WORKERS = 10
+const COINS = 100
+const OSLO_FOUNDATION_YEAR = 1048
+const FAVORITE_DRINK = "green tea"
+const SMILING_EMOJI = 128512
+
 func runLesson(fn func()) {
 	fn()
 }
@@ -33,7 +39,7 @@ func constFunc() {
 
 }
 
-func RunConstants() {
+func runConstants() {
 	// FAVORITE_DRINK = "green tea"
 	const CONST_FROM_FUNC = "I'm from runConstants() func"
 	fmt.Printf("Workers: %d, coins: %d, Oslo foundation year: %d, favorite drink: %s, emoji(d): %d, local const: %s, emoji(s): %s",
@@ -64,6 +70,7 @@ func runRunes() {
 	printRuneVariables("Letter 'E'", int32LetterE)
 	var runeFireEmoji rune = '\U0001F525' //
 	printRuneVariables("Emoji 'Fire'", runeFireEmoji)
+
 	var stringEmoji string = string(128293)
 	fmt.Println("stringEmoji =", stringEmoji)
 	runeEuroSymbol1 := '\U000020AC' // €
