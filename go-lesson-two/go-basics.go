@@ -108,4 +108,39 @@ func runMultipleVars() {
 
 func runArrays() {
 
+	value1, value2 := 1, 2
+	fmt.Println("1", value1)
+	fmt.Println("2-", value2)
+	// 1. var name [size]type
+	var stringArray [3]string // ["", "", ""] уже при объявлении под капотом
+	fmt.Println(stringArray)
+
+	fmt.Printf("Len = %d, cap = %d\n", len(stringArray), cap(stringArray))
+	stringArray[0] = "first"
+	fmt.Println(stringArray)
+	stringArray[2] = "third"
+	fmt.Println(stringArray)
+	stringArray[2] = "last"
+	fmt.Println(stringArray)
+	fmt.Println("[" + stringArray[1] + "]")
+	// 2. name := [size] type{value1, value2, value3}
+
+	int8Array := [3]int8{5, 30, 89}
+	fmt.Println(int8Array)
+	int8Array[0] = 6
+	int8Array[2] = 90
+	fmt.Println(int8Array)
+	// int8Array[3] = 0
+	// int8Array[-1] = 0
+	// index := 3
+	// fmt.Println(int8Array[index])
+	// 3. name: [...] type(value, value,..و valueN}
+	runeArray := [...]rune{'A', '\U000020AC', 'H', '🔨'}
+	runeArray[3] = '€'
+	// runeArray [4] = 'B'
+	fmt.Printf("Len%d, cap %d\n", len(runeArray), cap(runeArray))
+	// 4. Recreation
+	int16Array := [2]int16{1, 2}
+	fmt.Println(int16Array)
+
 }
