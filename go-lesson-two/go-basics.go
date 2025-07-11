@@ -21,7 +21,7 @@ func runLessons() {
 	runLesson(runRunes)
 	runLesson(runConstants)
 	runLesson(runComments)
-	//runLesson(runMultipleVars)
+	runLesson(runMultipleVars)
 	//runLesson(runArrays)
 	//runLesson(runSlices)
 	//runLesson(runSkipVar)
@@ -68,20 +68,36 @@ func runRunes() {
 	printRuneVariables("Letter 'D'", int32LetterD)
 	int32LetterE := int32(69)
 	printRuneVariables("Letter 'E'", int32LetterE)
-	var runeFireEmoji rune = '\U0001F525' //
+	var runeFireEmoji = '\U0001F525' //
 	printRuneVariables("Emoji 'Fire'", runeFireEmoji)
 
-	var stringEmoji string = string(128293)
+	var stringEmoji = string(128293)
 	fmt.Println("stringEmoji =", stringEmoji)
 	runeEuroSymbol1 := '\U000020AC' // €
 	printRuneVariables("Symbol 'Euro 1'", runeEuroSymbol1)
 	runeEuroSymbol2 := '€'
 	printRuneVariables("Symbol 'Euro 2'", runeEuroSymbol2)
-	var int32NewLineSymbol int32 = '\n'
+	var int32NewLineSymbol = '\n'
 	printRuneVariables("Symbol 'New Line'", int32NewLineSymbol)
-	var runeHammerEmoji rune = '\U0001F528' //
+	var runeHammerEmoji = '\U0001F528' //
 	printRuneVariables("Emoji 'Hammer'", runeHammerEmoji)
 	newEmojiFromFire := runeFireEmoji + 3
 	printRuneVariables("New emoji 'Fire+3'", newEmojiFromFire)
 
+}
+func getThreeVariables() (int32Var1, int32Var2 int32, float32Var float32) {
+	int32Var1, int32Var2, float32Var = 9, 10, 11.111111
+	return
+}
+func runMultipleVars() {
+	var int8Value1, int8Value2, int8Value3 int8
+	int8Value1, int8Value2, int8Value3 = 1, 2, 3
+	fmt.Println(int8Value1, int8Value2, int8Value3)
+	// var val1, val2 int8, var val3 int = 1, 2, 3
+	var intValue, stringValue, runeValue = 4, "five", rune(6)
+	fmt.Println(intValue, stringValue, runeValue)
+	boolValue, uint32Value := false, uint32(8)
+	fmt.Println(boolValue, uint32Value)
+	int32Value1, int32Value2, float32Value := getThreeVariables()
+	fmt.Println(int32Value1, int32Value2, float32Value)
 }
