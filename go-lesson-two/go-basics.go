@@ -7,12 +7,6 @@ func main() {
 	runLessons()
 }
 
-const NUMBER_OF_WORKERS = 10
-const COINS = 100
-const OSLO_FOUNDATION_YEAR = 1048
-const FAVORITE_DRINK = "green tea"
-const SMILING_EMOJI = 128512
-
 func runLesson(fn func()) {
 	fn()
 }
@@ -22,7 +16,7 @@ func runLessons() {
 	runLesson(runConstants)
 	runLesson(runComments)
 	runLesson(runMultipleVars)
-	//runLesson(runArrays)
+	runLesson(runArrays)
 	//runLesson(runSlices)
 	//runLesson(runSkipVar)
 	//runLesson(runIfElseSwitch)
@@ -34,29 +28,7 @@ func printRuneVariables(variableName string, variableValue rune) {
 	fmt.Printf("%s as an int: [%d], as a string: [%s] \n", variableName, variableValue, string(variableValue))
 }
 
-// Constants
-func constFunc() {
-
-}
-
-func runConstants() {
-	// FAVORITE_DRINK = "green tea"
-	const CONST_FROM_FUNC = "I'm from runConstants() func"
-	fmt.Printf("Workers: %d, coins: %d, Oslo foundation year: %d, favorite drink: %s, emoji(d): %d, local const: %s, emoji(s): %s",
-		NUMBER_OF_WORKERS, COINS, OSLO_FOUNDATION_YEAR, FAVORITE_DRINK, SMILING_EMOJI, CONST_FROM_FUNC, string(SMILING_EMOJI))
-	for i := 0; i < 2; i++ {
-		const CONST_FROM_LOOP = "I'm from loop"
-		fmt.Println(CONST_FROM_LOOP)
-	}
-	// fmt.Println(CONST_FROM_LOOP)
-	constFunc()
-}
-
-// Comments
-func runComments() {
-}
-
-// Это полный синоним int32
+// Rune - Это полный синоним int32
 func runRunes() {
 	var runeLetterA rune = 65
 	printRuneVariables("Letter 'A'", runeLetterA)
@@ -85,6 +57,36 @@ func runRunes() {
 	printRuneVariables("New emoji 'Fire+3'", newEmojiFromFire)
 
 }
+
+// Constants
+func constFunc() {
+
+}
+
+const NUMBER_OF_WORKERS = 10
+const COINS = 100_000
+const OSLO_FOUNDATION_YEAR = 1048
+const FAVORITE_DRINK = "green tea"
+const SMILING_EMOJI = 128512
+
+func runConstants() {
+	// FAVORITE_DRINK = "green tea"
+	const CONST_FROM_FUNC = "I'm from runConstants() func"
+	fmt.Printf("Workers: %d, coins: %d, Oslo foundation year: %d, favorite drink: %s, emoji(d): %d, local const: %s, emoji(s): %s",
+		NUMBER_OF_WORKERS, COINS, OSLO_FOUNDATION_YEAR, FAVORITE_DRINK, SMILING_EMOJI, CONST_FROM_FUNC, string(SMILING_EMOJI))
+	for i := 0; i < 2; i++ {
+		const CONST_FROM_LOOP = "I'm from loop"
+		fmt.Println(CONST_FROM_LOOP)
+	}
+	// fmt.Println(CONST_FROM_LOOP)
+	constFunc()
+}
+
+// Comments
+func runComments() {
+}
+
+// MultipleVars
 func getThreeVariables() (int32Var1, int32Var2 int32, float32Var float32) {
 	int32Var1, int32Var2, float32Var = 9, 10, 11.111111
 	return
@@ -100,4 +102,10 @@ func runMultipleVars() {
 	fmt.Println(boolValue, uint32Value)
 	int32Value1, int32Value2, float32Value := getThreeVariables()
 	fmt.Println(int32Value1, int32Value2, float32Value)
+}
+
+//Arrays - это коллекции однородных данных. Простой - статический
+
+func runArrays() {
+
 }
