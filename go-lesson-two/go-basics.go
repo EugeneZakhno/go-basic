@@ -33,7 +33,17 @@ func constFunc() {
 
 }
 
-func runConstants() {
+func RunConstants() {
+	// FAVORITE_DRINK = "green tea"
+	const CONST_FROM_FUNC = "I'm from runConstants() func"
+	fmt.Printf("Workers: %d, coins: %d, Oslo foundation year: %d, favorite drink: %s, emoji(d): %d, local const: %s, emoji(s): %s",
+		NUMBER_OF_WORKERS, COINS, OSLO_FOUNDATION_YEAR, FAVORITE_DRINK, SMILING_EMOJI, CONST_FROM_FUNC, string(SMILING_EMOJI))
+	for i := 0; i < 2; i++ {
+		const CONST_FROM_LOOP = "I'm from loop"
+		fmt.Println(CONST_FROM_LOOP)
+	}
+	// fmt.Println(CONST_FROM_LOOP)
+	constFunc()
 }
 
 // Comments
