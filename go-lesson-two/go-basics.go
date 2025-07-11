@@ -143,4 +143,19 @@ func runArrays() {
 	int16Array := [2]int16{1, 2}
 	fmt.Println(int16Array)
 
+	int16Array = [2]int16{3}
+	// int 16Array make ([]int16, 2)
+	// int16Array = [3]int16(]
+	// int16Array = [2]int8{}
+	// int16Array= [2]int32{}
+	fmt.Println(int16Array)
+
+	// 6. Slices
+	flowersArray := [5]string{"e Daisy", "1 Rose", "2 Violet", "3 Chamomile", "4 Tulip"}
+	slice := flowersArray[0:3]
+	fmt.Println("slice", slice)
+
+}
+func runSlices() {
+
 }
