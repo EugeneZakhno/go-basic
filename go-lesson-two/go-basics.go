@@ -205,4 +205,44 @@ func runSlices() {
 		intSlice = append(intSlice, i)
 	}
 
+	// 5. name := make([]type, len, cap)
+	fmt.Println("5. name := make([]type, len, cap)")
+	int64Slice := make([]int64, 3, 6)
+	fmt.Println(int64Slice)
+	fmt.Printf("Length = %d, Capacity = %d\n", len(int64Slice), cap(int64Slice))
+	int64Slice[0] = 1
+	// int64Slice[3] = 4
+	fmt.Println(int64Slice)
+	fmt.Printf("Length=%d, Capacity %d\n", len(int64Slice), cap(int64Slice))
+
+	int64Slice = append(int64Slice, []int64{111, 222}...)
+	fmt.Println(int64Slice)
+	fmt.Printf("Length = %d, Capacity = %d\n", len(int64Slice), cap(int64Slice))
+
+	int64Slice = append(int64Slice, []int64{333, 444}...)
+	fmt.Println(int64Slice)
+	fmt.Printf("Length = %d, Capacity = %d\n", len(int64Slice), cap(int64Slice))
+
+	// 6. Subslices подсрезы
+	fmt.Println("stringSlice:", stringSlice)
+	fmt.Println("[0:1):", stringSlice[0:1]) // вторая цифра не вкючительно
+	fmt.Println("[0:2):", stringSlice[0:2])
+	fmt.Println("[0:0):", stringSlice[0:0])
+	fmt.Println("[1:3):", stringSlice[1:3])
+	fmt.Println("[:2):", stringSlice[:2]) // это полный аналог 0:2
+	fmt.Println("[:1):", stringSlice[:1])
+	fmt.Println("[:0):", stringSlice[:0])
+	fmt.Println("[0:):", stringSlice[0:])
+	fmt.Println("[:]:", stringSlice[:])
+	fmt.Println("[:]:", stringSlice[:])
+
+	// 7. Recreation
+	namesSlice := make([]string, 0, 3)
+	namesSlice = append(namesSlice, []string{"Dana", "Alice", "Bob"}...)
+	fmt.Println(namesSlice)
+	fmt.Printf("Length = %d, Capacity = %d\n", len(namesSlice), cap(namesSlice))
+	namesSlice = make([]string, 2, 18)
+	fmt.Println(namesSlice)
+	fmt.Printf("Length = %d, Capacity = %d\n", len(namesSlice), cap(namesSlice))
+
 }
