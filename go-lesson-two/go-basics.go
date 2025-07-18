@@ -18,8 +18,8 @@ func runLessons() {
 	runLesson(runMultipleVars)
 	runLesson(runArrays)
 	runLesson(runSlices)
-	//runLesson(runSkipVar)
-	//runLesson(runIfElseSwitch)
+	runLesson(runSkipVar)
+	runLesson(runIfElseSwitch)
 	//	runLesson(Loops)
 }
 
@@ -232,8 +232,7 @@ func runSlices() {
 	fmt.Println("[:2):", stringSlice[:2]) // это полный аналог 0:2
 	fmt.Println("[:1):", stringSlice[:1])
 	fmt.Println("[:0):", stringSlice[:0])
-	fmt.Println("[0:):", stringSlice[0:])
-	fmt.Println("[:]:", stringSlice[:])
+	fmt.Println("[0:):", stringSlice[0:]) // это с 0 и до конца (вывести все)
 	fmt.Println("[:]:", stringSlice[:])
 
 	// 7. Recreation
@@ -244,5 +243,112 @@ func runSlices() {
 	namesSlice = make([]string, 2, 18)
 	fmt.Println(namesSlice)
 	fmt.Printf("Length = %d, Capacity = %d\n", len(namesSlice), cap(namesSlice))
+
+}
+
+// Skip variables _, _
+func demonstrateSkipping(int8Value int8, _ string) (result float32, _ rune) { // _ string - это будет стринг, но она меня не интересует, я это значение даже принимать не буду
+	fmt.Println("demonstrateskipping: int8Value =", int8Value)
+	return
+}
+
+func runSkipVar() {
+	float32Result, skippedRune := demonstrateSkipping(1, "2")
+	fmt.Println(float32Result, string(skippedRune))
+	_, _ = demonstrateSkipping(3, "4")
+	demonstrateSkipping(5, "6")
+	// demonstrateSkipping (5,)
+
+	for _, value := range []int{8, 90, 350} {
+		fmt.Println(value)
+	}
+}
+
+// If else, switch
+func printSeasonOfBirthWithSwitch(monthofBirth int) {
+
+}
+func runIfElseSwitch() {
+	fmt.Println("This line will be printed 100%")
+	var intValue int // 0
+
+	if intValue == 0 {
+		fmt.Println("This line will be printed because intValue is ZERO")
+	}
+
+	intValue = 5
+
+	if intValue == 0 {
+		fmt.Println("This line will not be printed")
+	} else {
+	}
+	fmt.Println("This line will be printed because intValue is FIVE now")
+
+	if intValue == 0 {
+		fmt.Println("This line will not be printed")
+	} else if intValue == 1 {
+		fmt.Println("This line will not be printed")
+	} else if intValue == 2 {
+		fmt.Println("This line will not be printed")
+	}
+
+	if intValue == 0 {
+		fmt.Println("This line will not be printed")
+	} else if intValue == 0 || intValue > 2 { // && - это и , это или
+		fmt.Println("This line will be printed because intValue is MORE THAN TWO now")
+	} else if intValue == 5 {
+		fmt.Println("This line will not be printed")
+	} else {
+		fmt.Println("This line will not be printed")
+	}
+
+	var monthOfBirth string = "October"
+
+	if monthOfBirth == "August" {
+		fmt.Println("You were born in August, 8th month, Summer")
+	} else if monthOfBirth == "September" {
+		fmt.Println("You were born in Septemmer, 9th month, Autumn")
+	} else if monthOfBirth == "October" {
+		fmt.Println("You were born in October, 10th month, Autumn")
+	} else if monthOfBirth == "November" {
+		fmt.Println("You were born in November, 11th month, Autumn")
+	} else if monthOfBirth == "December" {
+		fmt.Println("You were born in December, 12th month, Winter")
+	} else if monthOfBirth == "January" {
+		fmt.Println("You were born in January, 1th month, Winter")
+	} else if monthOfBirth == "February" {
+		fmt.Println("You were born in February, 2th month, Winter")
+	} else if monthOfBirth == "March" {
+		fmt.Println("You were born in March, 3th month, Spring")
+	} else if monthOfBirth == "April" {
+		fmt.Println("You were born in April, 4th month, Spring")
+	} else if monthOfBirth == "May" {
+		fmt.Println("You were born in May, 5th month, Spring")
+	} else if monthOfBirth == "June" {
+		fmt.Println("You were born in June, 6th month, Summer")
+	} else if monthOfBirth == "July" {
+		fmt.Println("You were born in July, 7th month, Summer")
+	}
+
+	switch monthOfBirth {
+	case "August":
+		fmt.Println("You were born in August, 8th month, Summer")
+	case "September":
+		fmt.Println("You were born in September, 9th month, Autumn")
+	case "October":
+		fmt.Println("Switch^ You were born in October, 10th month, Autumn")
+	case "November":
+		fmt.Println("You were born in November, 11th month, Autumn")
+	case "December":
+		fmt.Println("You were born in December, 12th month, Winter")
+	case "January":
+		fmt.Println("You were born in January, 1th month, Winter")
+	case "February":
+		fmt.Println("You were born in February, 2th month, Winter")
+	case "March":
+		fmt.Println("You were born in March, 3th month, Spring")
+	case "April":
+		fmt.Println("You were born in April, 4th month, Spring")
+	}
 
 }
