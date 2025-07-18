@@ -380,17 +380,19 @@ func runLoops() {
 		fmt.Println("For i loop #2: index =", i)
 	}
 
-	for i := 0; i < 4; { // беспоконечный цикл
-		fmt.Println("For i loop #3: index =", i)
-		i++
-	}
+	/*	for i := 0; i < 4;  { // беспоконечный цикл
+			fmt.Println("For i loop #3: index =", i)
+			i++
+		}
+	*/
 
-	for i := 0; ; i = 1 {
+	/* for i := 0; ; i = 1 { // тоже беспоконечный цикл
 		fmt.Println("For i loop #4: index =", i)
 		if i == -3 {
 			break // прерывает цикл
 		}
 	}
+	*/
 
 	for i := 0; i < 10; i++ {
 		if i == 5 {
@@ -399,11 +401,12 @@ func runLoops() {
 		fmt.Println("For i loop #5: index =", i)
 	}
 
-	for i := 0; i < 10; i++ {
-		if i == 5 {
-			return // прерывает функцию
+	/*	for i := 0; i < 10; i++ {
+			if i == 5 {
+				return // прерывает функцию
+			}
 		}
-	}
+	*/
 
 	var index int = 2
 	for ; index < 7; index++ {
@@ -413,5 +416,55 @@ func runLoops() {
 		fmt.Println("For i loop #5: index", index)
 	}
 	// goto - переходит к метке
+
+	for {
+		fmt.Println("For i Loop #6: index", index)
+		if index == 11 {
+			break
+		}
+		index += 2
+	}
+
+	/*
+		for { //// еще один самый самый Беспоконечный цикл
+			fmt.Println("Поставь лайк, напиши коммент, подпишись")
+		}
+	*/
+
+	for i := 0; i < 10; i++ {
+		if i%2 == 0 { // % - остаток от деления/ Делится ли без остатка на 2, на 3 , на 5 и т.д.
+			fmt.Println("For i loop #7: EVEN index =", i)
+		}
+	}
+
+	// Итерация по коллекциям:
+	salmonSlice := []string{"I", "am", "a", "singing", "Salmon", "spending", "all", "day", "jamming"}
+
+	fmt.Println("Пронумеровать и пробежать по коллекции:")
+	for i, word := range salmonSlice { // range -  ключевое слово range используется для итерации по элементам различных коллекций, таких как массивы, срезы, карты (maps) и каналы.
+		fmt.Println(i, word)
+	}
+
+	for i, _ := range salmonSlice { // range бежать по коллекции
+		fmt.Println(i)
+	}
+
+	for _, word := range salmonSlice {
+		fmt.Println(word)
+	}
+
+	fmt.Println("вывести только цифры:")
+	for i := range salmonSlice { // range бежать по коллекции
+		fmt.Println(i)
+	}
+
+	for i := 0; i < len(salmonSlice); i += 2 { //i += 2 вывести каждое второе слово
+		fmt.Println(i, salmonSlice[i])
+	}
+
+	fmt.Println("вывести только слова:")
+	for _, word := range salmonSlice {
+		fmt.Println(word)
+	}
 
 }
