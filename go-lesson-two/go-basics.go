@@ -17,7 +17,7 @@ func runLessons() {
 	runLesson(runComments)
 	runLesson(runMultipleVars)
 	runLesson(runArrays)
-	//runLesson(runSlices)
+	runLesson(runSlices)
 	//runLesson(runSkipVar)
 	//runLesson(runIfElseSwitch)
 	//	runLesson(Loops)
@@ -111,6 +111,7 @@ func runArrays() {
 	value1, value2 := 1, 2
 	fmt.Println("1", value1)
 	fmt.Println("2-", value2)
+
 	// 1. var name [size]type
 	var stringArray [3]string // ["", "", ""] уже при объявлении под капотом
 	fmt.Println(stringArray)
@@ -123,8 +124,8 @@ func runArrays() {
 	stringArray[2] = "last"
 	fmt.Println(stringArray)
 	fmt.Println("[" + stringArray[1] + "]")
-	// 2. name := [size] type{value1, value2, value3}
 
+	// 2. name := [size] type{value1, value2, value3}
 	int8Array := [3]int8{5, 30, 89}
 	fmt.Println(int8Array)
 	int8Array[0] = 6
@@ -134,12 +135,15 @@ func runArrays() {
 	// int8Array[-1] = 0
 	// index := 3
 	// fmt.Println(int8Array[index])
+
 	// 3. name: [...] type(value, value,..و valueN}
 	runeArray := [...]rune{'A', '\U000020AC', 'H', '🔨'}
 	runeArray[3] = '€'
 	// runeArray [4] = 'B'
 	fmt.Printf("Len%d, cap %d\n", len(runeArray), cap(runeArray))
+
 	// 4. Recreation
+	fmt.Println("4. Recreation.")
 	int16Array := [2]int16{1, 2}
 	fmt.Println(int16Array)
 
@@ -150,12 +154,55 @@ func runArrays() {
 	// int16Array= [2]int32{}
 	fmt.Println(int16Array)
 
-	// 6. Slices
+	// 5. Slices -
+	fmt.Println("5. Slices -  в значении обрезать")
 	flowersArray := [5]string{"e Daisy", "1 Rose", "2 Violet", "3 Chamomile", "4 Tulip"}
 	slice := flowersArray[0:3]
 	fmt.Println("slice", slice)
 
 }
+
+// Slices. отличается от массива объявление в виде пустых []
 func runSlices() {
+	fmt.Println("SLICES - real slices []")
+	// 1. name: []type{}
+	fmt.Println("1. name: []type{}")
+	int8Slice := []int8{}
+	fmt.Println(int8Slice)
+	fmt.Printf("Length = %d, Capacity = %d\n", len(int8Slice), cap(int8Slice))
+	// int8slice[0] = 1
+	int8Slice = append(int8Slice, 10)
+	int8Slice = append(int8Slice, 20, 30, 40, 50)
+	fmt.Println(int8Slice)
+
+	int8Slice = append(int8Slice, int8Slice...)
+	int8Slice[0] = 88
+	fmt.Println(int8Slice)
+
+	// 2. name:= [] type(vall, val2, ..., valn)
+	fmt.Println("// 2. name:= [] type(vall, val2, ..., valn)")
+	stringSlice := []string{"cat", "dog"}
+	fmt.Println(stringSlice)
+	stringSlice = append(stringSlice, []string{"fish", "bird", "deer"}...)
+	stringSlice[0], stringSlice[1] = "lama", "crocodile"
+	fmt.Println(stringSlice)
+
+	// 3. name: make ([] type, size)
+	fmt.Println("3. name: make ([] type, size)")
+
+	runeSlice := make([]rune, 2)
+	fmt.Println(runeSlice)
+	runeSlice[0] = 'A'
+	runeSlice[1] = 'B'
+	// runeSlice [2] = 	'C'
+	fmt.Println(runeSlice)
+	runeSlice = append(runeSlice, 'C', 'D', 'E')
+	fmt.Println(runeSlice)
+	// 4. len
+	intSlice := []int{}
+	for i := 0; i < 140; i++ {
+		fmt.Printf("Length=%d, Capacity = %d\n", len(intSlice), cap(intSlice))
+		intSlice = append(intSlice, i)
+	}
 
 }
