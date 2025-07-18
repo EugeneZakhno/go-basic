@@ -20,7 +20,7 @@ func runLessons() {
 	runLesson(runSlices)
 	runLesson(runSkipVar)
 	runLesson(runIfElseSwitch)
-	//	runLesson(Loops)
+	runLesson(runLoops)
 }
 
 // Runes
@@ -364,10 +364,28 @@ func runIfElseSwitch() {
 	case "April":
 		fmt.Println("You were born in April, 4th month, Spring")
 	}
-
 	printSeasonOfBirthwithSwitch(1)
 	printSeasonOfBirthwithSwitch(10)
 	printSeasonOfBirthwithSwitch(3)
 	printSeasonOfBirthwithSwitch(5)
+}
 
+// Loops
+func runLoops() {
+	for i := 0; i < 3; i++ {
+		fmt.Println("For i loop #1: index =", i)
+	}
+	for i := -5; i <= 15; i += 5 {
+		fmt.Println("For i loop #2: index =", i)
+	}
+	for i := 0; i < 4; {
+		fmt.Println("For i loop #3: index =", i)
+		i++
+	}
+	for i := 0; ; i = 1 {
+		fmt.Println("For i loop #4: index =", i)
+		if i == -3 {
+			break
+		}
+	}
 }
