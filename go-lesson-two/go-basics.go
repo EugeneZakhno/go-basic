@@ -63,7 +63,7 @@ func constFunc() {
 
 }
 
-const NUMBER_OF_WORKERS = 10
+const NUMBER_OF_WORKERS int8 = 10
 const COINS = 100_000
 const OSLO_FOUNDATION_YEAR = 1048
 const FAVORITE_DRINK = "green tea"
