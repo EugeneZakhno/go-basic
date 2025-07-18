@@ -372,20 +372,46 @@ func runIfElseSwitch() {
 
 // Loops
 func runLoops() {
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 3; i++ { // i++ - это i = i + 1 или i += 1
 		fmt.Println("For i loop #1: index =", i)
 	}
+
 	for i := -5; i <= 15; i += 5 {
 		fmt.Println("For i loop #2: index =", i)
 	}
-	for i := 0; i < 4; {
+
+	for i := 0; i < 4; { // беспоконечный цикл
 		fmt.Println("For i loop #3: index =", i)
 		i++
 	}
+
 	for i := 0; ; i = 1 {
 		fmt.Println("For i loop #4: index =", i)
 		if i == -3 {
-			break
+			break // прерывает цикл
 		}
 	}
+
+	for i := 0; i < 10; i++ {
+		if i == 5 {
+			continue // пропускает итерацию
+		}
+		fmt.Println("For i loop #5: index =", i)
+	}
+
+	for i := 0; i < 10; i++ {
+		if i == 5 {
+			return // прерывает функцию
+		}
+	}
+
+	var index int = 2
+	for ; index < 7; index++ {
+		if index >= 3 && index <= 5 {
+			continue // пропускает итерацию
+		}
+		fmt.Println("For i loop #5: index", index)
+	}
+	// goto - переходит к метке
+
 }
