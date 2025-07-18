@@ -26,6 +26,83 @@ float64       64     8        1.7e308                     1.7e308
  КОМПЛЕКСНЫЕ ЧИСЛА:
 complex64     64     8
 complex128   128     16
+
+ ЗНАЧЕНИЯ ПО УМОЛЧАНИЮ:
+ 1. Числовые типы
+• int, int8, int16, int32, int64: 0
+• uint, uint8, uint16, uint32, uint64: 0
+• float32: 0.0
+• float64: 0.0
+• complex64: 0 + 0i
+• complex128: 0 + 0i
+
+▎2. Булевый тип
+
+• bool: false
+
+▎3. Символьный тип
+
+• rune (alias for int32): 0 (представляет символ 'u0000', нулевой символ)
+
+▎4. Строки
+
+• string: "" (пустая строка)
+
+▎5. Массивы
+
+• Все элементы массива инициализируются значениями по умолчанию для соответствующего типа.
+
+▎6. Срезы
+
+• slice: nil (срез не инициализирован)
+
+▎7. Карты (maps)
+
+• map: nil (карта не инициализирована)
+
+▎8. Каналы
+
+• channel: nil (канал не инициализирован)
+
+▎9. Структуры
+
+• Все поля структуры инициализируются значениями по умолчанию для их типов.
+
+▎Пример
+
+Вот пример, демонстрирующий значения по умолчанию для различных типов данных:
+
+package main
+
+import "fmt"
+
+type MyStruct struct {
+    A int
+    B string
+}
+
+func main() {
+    var i int
+    var f float64
+    var b bool
+    var s string
+    var arr [3]int
+    var slice []int
+    var m map[string]int
+    var ch chan int
+    var str MyStruct
+
+    fmt.Printf("int: %d\n", i)          // 0
+    fmt.Printf("float64: %f\n", f)      // 0.0
+    fmt.Printf("bool: %t\n", b)         // false
+    fmt.Printf("string: '%s'\n", s)     // ''
+    fmt.Printf("array: %v\n", arr)      // [0 0 0]
+    fmt.Printf("slice: %v\n", slice)    // []
+    fmt.Printf("map: %v\n", m)          // <nil>
+    fmt.Printf("channel: %v\n", ch)     // <nil>
+    fmt.Printf("struct: %+v\n", str)    // {A:0 B:}
+}
+
 */
 
 // Global var
