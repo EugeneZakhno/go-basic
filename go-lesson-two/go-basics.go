@@ -265,9 +265,22 @@ func runSkipVar() {
 }
 
 // If else, switch
-func printSeasonOfBirthWithSwitch(monthofBirth int) {
-
+func printSeasonOfBirthwithSwitch(monthOfBirth int) {
+	switch monthOfBirth {
+	case 9, 10, 11: // тоже самое что case 9 || 10 || 11
+		fmt.Println("You were born in Autumn")
+	case 12, 1, 2:
+		fmt.Println("You were born in winter")
+		fallthrough // проволиться "сквозь" ровно на 1 блок вниз, т.е. вывести далее (это аналог continue в java)
+	case 3, 4, 5:
+		fmt.Println("You were born not in Autumn or Summer")
+	case 6, 7, 8:
+		fmt.Println("You were born in Summer")
+	default:
+		fmt.Println("Whaaaaaat?!")
+	}
 }
+
 func runIfElseSwitch() {
 	fmt.Println("This line will be printed 100%")
 	var intValue int // 0
@@ -330,6 +343,7 @@ func runIfElseSwitch() {
 		fmt.Println("You were born in July, 7th month, Summer")
 	}
 
+	// НЕт такого свича, который нельзязаенить if !!!
 	switch monthOfBirth {
 	case "August":
 		fmt.Println("You were born in August, 8th month, Summer")
@@ -350,5 +364,10 @@ func runIfElseSwitch() {
 	case "April":
 		fmt.Println("You were born in April, 4th month, Spring")
 	}
+
+	printSeasonOfBirthwithSwitch(1)
+	printSeasonOfBirthwithSwitch(10)
+	printSeasonOfBirthwithSwitch(3)
+	printSeasonOfBirthwithSwitch(5)
 
 }
