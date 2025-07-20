@@ -453,7 +453,7 @@ func runLoops() {
 		fmt.Println(word)
 	}
 
-	fmt.Println("вывести только цифры:")
+	fmt.Println("Вывести только цифры- Output just figures:")
 	for i := range salmonSlice { // range бежать по коллекции
 		fmt.Println(i)
 	}
@@ -462,7 +462,7 @@ func runLoops() {
 		fmt.Println(i, salmonSlice[i])
 	}
 
-	fmt.Println("вывести только слова:")
+	fmt.Println("вывести только слова - output just words:")
 	for _, word := range salmonSlice {
 		fmt.Println(word)
 	}
