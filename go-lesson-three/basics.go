@@ -103,13 +103,13 @@ func printBoolStringMap(mapBoolString map[bool]string) {
 }
 
 func printStringFloat64Map(mapStringFloat64 map[string]float64) {
-	fmt.Println("\n mapBoolString", mapStringFloat64, ", len", len(mapStringFloat64))
+	fmt.Println("\n mapStringFloat64", mapStringFloat64, ", len", len(mapStringFloat64))
 }
 
 func runMap() {
 	var map1 map[string]float64
 	fmt.Println("map1 =", map1, "; len (map1) =", len(map1))
-	map1["key1"] = 10
+	//map1["key1"] = 10 //panic: assignment to entry in nil map - пытаешься прописать в неинициализированную мапу
 	map2 := make(map[string]float64) // без capacity
 	fmt.Println("map2 =", map2, "; len (map2) =", len(map2))
 
