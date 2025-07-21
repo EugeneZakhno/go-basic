@@ -5,12 +5,11 @@ import (
 	importedFood "go-basics/go-lesson-three/food"
 )
 
-/*
-	func main() {
-		fmt.Println("Lesson_3: Pointers, Maps, Structures, Methods, Public & Private.")
-		runLessons()
-	}
-*/
+func main() {
+	fmt.Println("Lesson_3: Pointers, Maps, Structures, Methods, Public & Private:")
+	runLessons()
+}
+
 func runLesson(fn func()) {
 	fn()
 }
@@ -37,7 +36,7 @@ func changeNames(array [3]string, pointer *[3]string) {
 func runPointer() {
 	var mySalary int64 = 1250
 	var yourSalary int64 = mySalary
-	fmt.Printf("Моя зарплата: %d, твоя зарплата: %d \n", mySalary, yourSalary)
+	fmt.Printf("Моя зарплата: %d, твоя зарплата (копия моей): %d \n", mySalary, yourSalary)
 
 	mySalary += 200
 	fmt.Printf("Моя зарплата: %d, твоя зарплата: %d \n", mySalary, yourSalary)
@@ -55,7 +54,7 @@ func runPointer() {
 	fmt.Println("Cравнение по значению: ", mySavings == *yourSavings)
 
 	//fmt.Println(mySavings == yourSavings)
-	//fmt.Println(&mySavings == yourSavings)
+	//fmt.Println(&mySavings == *yourSavings)
 
 	mySavings += mySalary
 	fmt.Printf("Мои сбережения: %d, твои сбережения: %d \n", mySavings, yourSavings)
@@ -104,6 +103,7 @@ func printBoolStringMap(mapBoolString map[bool]string) {
 }
 
 func printStringFloat64Map(mapStringFloat64 map[string]float64) {
+	fmt.Println("\n mapBoolString", mapStringFloat64, ", len", len(mapStringFloat64))
 }
 
 func runMap() {
@@ -128,10 +128,13 @@ func runMap() {
 
 	mapBoolString := make(map[bool]string, 1)
 	printBoolStringMap(mapBoolString)
+
 	mapBoolString[true] = "Tрава зелёная"
 	printBoolStringMap(mapBoolString)
+
 	mapBoolString[true] = "Я подписался на канал"
 	printBoolStringMap(mapBoolString)
+
 	mapBoolString[false] = "Земля плоская"
 	printBoolStringMap(mapBoolString)
 
@@ -143,6 +146,7 @@ func runMap() {
 	}
 
 	printStringFloat64Map(prices)
+
 	prices["Вино"] = 45.99
 	prices["Пельмени"] = 9.80
 	printStringFloat64Map(prices)
