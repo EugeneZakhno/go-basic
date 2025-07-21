@@ -5,10 +5,12 @@ import (
 	importedFood "go-basics/go-lesson-three/food"
 )
 
-func main() {
-	fmt.Println("Lesson_3:")
-	runLessons()
-}
+/*
+	func main() {
+		fmt.Println("Lesson_3: Pointers, Maps, Structures, Methods, Public & Private.")
+		runLessons()
+	}
+*/
 func runLesson(fn func()) {
 	fn()
 }

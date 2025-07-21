@@ -15,6 +15,6 @@ func changeValueThroughPointer(p *int) {
 	*p = sqr
 }
 
-func squareVal(v int) {
+func squareVal(v int) { // There is a copy of v
 	println(v * v)
 }
