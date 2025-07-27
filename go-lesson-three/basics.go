@@ -180,12 +180,15 @@ func changeCharactersNames(character Character, pointer *Character) {
 }
 
 func runStructe() {
+
 	var emptyCat1 Cat
-	emptyCat2 := Cat{}
+
+	emptyCat2 := Cat{} // пустой кот для начала, будут все значения по умолчанию присвоены
+
 	fmt.Println("emptyCat1: ", emptyCat1, "emptyCat2 ", emptyCat2)
 
-	var emptyCatPointer1 *Cat = new(Cat)
-	var emptyCatPointer2 *Cat = &Cat{}
+	var emptyCatPointer1 *Cat = new(Cat) //указатель на кота
+	var emptyCatPointer2 *Cat = &Cat{}   //
 	fmt.Println("emptyCatPointer1: ", emptyCatPointer1, ", emptyCatPointer2: ", emptyCatPointer2)
 
 	breedSphinx := "Cфинкс"
@@ -213,7 +216,7 @@ func runStructe() {
 
 	vasiliy.breed = breedSiams
 	fmt.Println(vasiliy)
-	fmt.Printf(" Так удобнее указываем ключ значение %+v \n", vasiliy)
+	fmt.Printf(" Так удобнее указываем ключ значение %+v \n", vasiliy) // %+v  расширенное значение переменной
 	fmt.Println("Порода Василия:", vasiliy.breed)
 
 	// const marfa Cat   ВАЖНО: структуру нельзя присвоить константе, т.е. структура не может быть константой!!!!

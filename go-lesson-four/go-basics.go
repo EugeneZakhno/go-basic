@@ -312,7 +312,7 @@ func runRandom() {
 // Slices Sort
 func runSlicesSort() {
 	// import "sort"
-
+	println("👥 Slices Sort:✏👣 ")
 	intSlice := []int{1, 7, 8, 23, 9, -8}
 	if !sort.IntsAreSorted(intSlice) { // утверждение = false     утверждение != true...
 		sort.Ints(intSlice)
@@ -332,19 +332,25 @@ func runSlicesSort() {
 		fmt.Println("sorted float64Slice", float64Slice)
 	}
 
+	println("\n Анонимная функция : ")
 	floatSlice := []float64{0.1, 0.2, 0.3, 0.4, 0.5, 0.6}
 	rand.Shuffle(len(floatSlice), func(i, j int) { // анонимная функция с аргументами i - индекс одного числа, ј - индекс другого числа
 		floatSlice[i], floatSlice[j] = floatSlice[i]+1, floatSlice[j]+1
 	})
 	fmt.Println("shuffled floatSlice", floatSlice)
+
 	authors := []Author{{"Стивен Кинг", 1947}, {"Джоан Роулинг", 1965}, {"Нил Гейман", 1960}, {"Макс Фрай", 1965}}
 	fmt.Println(authors)
-	// sort.Slice(authors, func(i, j int) bool {
-	// if authors[j].YearOfBirth != authors[i]. YearOfBirth {д
-	// return authors[j].YearOfBirth > authors[i].YearOfBirth
-	// } else if len(authors[j].Name) != len(authors[i].Name) {
-	// return len(authors[j].Name) > len(authors[i].Name)
-	// }
+
+	sort.Slice(authors, func(i, j int) bool {
+		if authors[j].YearOfBirth != authors[i].YearOfBirth {
+			return authors[j].YearOfBirth > authors[i].YearOfBirth
+		} else if len(authors[j].Name) != len(authors[i].Name) {
+			return len(authors[j].Name) > len(authors[i].Name)
+		}
+		return authors[j].Name > authors[i].Name
+	})
+	fmt.Println(authors)
 
 	compareAnonFunc := func(i, j int) bool {
 		fmt.Printf("\nCравниваем %v (j=%d) и %v (i=%d)\n", authors[j], j, authors[i], i)
@@ -359,7 +365,6 @@ func runSlicesSort() {
 			fmt.Println("-", authors)
 			return false
 		}
-
 		// У автора с индексом і длиннее имя, чем у автора с индексом і?
 		if len(authors[j].Name) > len(authors[i].Name) {
 			fmt.Printf(" Имя %s (1-%d) длиннее у %s (1=%d). Меняем их местами (true).\n", authors[j].Name, j, authors[i].Name, i)
