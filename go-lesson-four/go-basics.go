@@ -313,17 +313,42 @@ func runRandom() {
 func runSlicesSort() {
 	// import "sort"
 	println("👥 Slices Sort:✏👣 ")
-	intSlice := []int{1, 7, 8, 23, 9, -8}
+	intSlice := []int{1, 7, 8, -23, 9, -8}
 	if !sort.IntsAreSorted(intSlice) { // утверждение = false     утверждение != true...
 		sort.Ints(intSlice)
 		fmt.Println("sorted intSlice", intSlice)
-
 	}
+
+	intsSlice := []int{5, 3, -8, 1, 2, 10}
+
+	// Bubble sort
+	n := len(intsSlice)
+	for i := 0; i < n-1; i++ {
+		for j := 0; j < n-i-1; j++ {
+			if intsSlice[j] > intsSlice[j+1] {
+				// Меняем местами элементы, если они находятся в неправильном порядке
+				intsSlice[j], intsSlice[j+1] = intsSlice[j+1], intsSlice[j]
+			}
+		}
+	}
+	fmt.Println("Sorted array:", intsSlice)
+
+	//	reverse with loop (от большему  к меньшему)
+	for i, j := 0, len(intSlice)-1; i < j; i, j = i+1, j-1 {
+		intSlice[i], intSlice[j] = intSlice[j], intSlice[i]
+	}
+	fmt.Println("Reverse with loop big to small", intSlice)
+
+	//reverse with loop (от меньшего к большему)
+	for i, j := 0, len(intSlice)-1; i < j; i, j = i+1, j-1 {
+		intSlice[j], intSlice[i] = intSlice[i], intSlice[j]
+	}
+	fmt.Println("Reverse with loop from small to big", intSlice)
 
 	stringSlice := []string{"Bbb", "AAA", "A", "D", "Ccc", "Bb"}
 	if !sort.StringsAreSorted(stringSlice) {
 		sort.Strings(stringSlice)
-		fmt.Println("sorted stringSlice", stringSlice)
+		fmt.Println("Reverse stringSlice", stringSlice)
 	}
 
 	float64Slice := []float64{4.444, 5.555, 1.111, 6.666, 3.333, 2.222}
